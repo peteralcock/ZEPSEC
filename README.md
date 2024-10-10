@@ -2,7 +2,7 @@
 
 ## Comprehensive Vulnerability Management, IoC Database, and Zero-Day Threat Tracking
 
-ZEPSEC is an enterprise-grade SaaS solution designed to streamline information security management processes. Our platform serves as a centralized hub for vulnerability management, threat intelligence, and security operations. We took a Russian hacker tool and improved it with AI log analysis, English conversion, and removal of all the backdoors the Russians put into this one (which we've taken out for you in this release. You're welcome.) 
+ZEPSEC is an enterprise-grade SaaS solution designed to streamline information security management processes. Our platform serves as a centralized hub for vulnerability management, threat intelligence, and security operations. We took a Russian hacker tool and improved it with AI log analysis, English language conversion, integration with X-Force and Shodan, and removal of all the backdoors the Russians put into this one (which we've taken out for you in this release. You're welcome.) 
 
 ### Current Features
 
