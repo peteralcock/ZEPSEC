@@ -1,0 +1,58 @@
+= index_search :vulnerability_kind_name_or_codename_or_published_str_or_modified_str_or_vendors_str_or_products_str_or_description_str_or_custom_description_or_state_str_or_cvss_vector_or_actuality_str_or_relevance_str_cont
+= report_button_for records
+- q_params = params.permit(q: {}).to_h[:q]&.reject do |_k, v|
+  - if v.respond_to?(:all?)
+    - v.all?(&:blank?)
+  - else
+    - v.blank?
+= command_button_for(records, q: q_params)
+= render 'search_form'
+= render 'download_search_form' if ['index', 'search'].include?(params[:action])
+br
+= render('search_filters/user_search_filters',
+  search_filters: @search_filters,
+  records: records)
+= index_for records, decorator: VulnerabilityDecorator do |t|
+  - t.header attribute: :readed, fit: true, label: ''
+  - t.header attribute: :modified, sort: :desc
+  - t.header attribute: :published, sort: :desc
+  - t.header attribute: :state, sort: :desc
+  - t.header attribute: :processed, sort: :desc
+  - t.header attribute: :criticality, sort_by: :cvss, sort: :desc
+  - t.header attribute: :cvss_av
+  - t.header attribute: :vulnerability_kind_id,
+    sort_by: :vulnerability_kind_name,
+    sort: :desc
+  - t.header attribute: :custom_actuality, sort: :desc
+  - t.header attribute: :custom_relevance, sort: :desc
+  - t.header attribute: :codename, sort: :desc
+  - t.header attribute: :description, sort: :desc
+  - t.header attribute: :some_vendors, sort: :desc, sort_by: :vendors_str
+  - t.header attribute: :some_products, sort: :desc, sort_by: :products_str
+  - t.header attribute: :vulnerability_bulletins
+  - t.field { |record| render 'readable', record: record }
+  - t.field { |record| link_to(show_date_time(record.modified), record) }
+  - t.field { |record| link_to(show_date_time(record.published), record) }
+  - t.field do |record|
+    - if record.state_published?
+      = link_to record.show_state, record, class: 'text-warning'
+    - else
+      = link_to record.show_state, record
+  - t.field do |record|
+    = render 'processed', record: record
+  - t.field do |record|
+    = render 'criticality', record: record
+  - t.field do |record|
+    = render 'cvss_av', record: record
+  - t.field { |record| link_to(record.show_vulnerability_kind_name, record.vulnerability_kind) }
+  - t.field do |record|
+    = render 'custom_actuality', record: record
+  - t.field do |record|
+    = render 'custom_relevance', record: record
+  - t.field do |record|
+    = render 'codename', record: record
+  - t.field { |record| link_to(truncate(record.show_description_string, length: 45), record) }
+  - t.field { |record| link_to(truncate(record.show_all_vendors, length: 45), record) }
+  - t.field { |record| link_to(truncate(record.show_all_products, length: 45), record) }
+  - t.field do |record|
+    = render 'vulnerability_bulletins', record: record

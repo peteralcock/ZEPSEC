@@ -1,0 +1,39 @@
+li
+  - i = IndicatorDecorator.new(indicator)
+  .panel.panel-default
+    .panel-heading
+      caption
+        - if current_user.admin_editor? || current_user.can?(:edit, 'Indicator')
+          => check_box_tag 'indicators_ids[]', i.id, session[:selected_indicators]&.map(&:to_i)&.include?(i.id)
+          =< link_to paste_indicators_path(investigation_id: @investigation.id, indicator_id: i.id), class: 'btn btn-link btn-xs', method: :put do
+            span class=('text-primary' unless session[:selected_indicators].present?)
+              => fa_icon 'paste'
+              = t('helpers.submit.paste')
+        strong
+          span.text-info
+            = i.show_content_format
+          - if i.indicator_contexts.present?
+            span.text-warning
+              = " (#{i.show_indicator_contexts})"
+        = " #{Indicator.human_attribute_name(:trust_level)}: #{i.show_trust_level},"
+        = " #{Indicator.human_attribute_name(:purpose)}: #{i.show_purpose}"
+    .list-group
+      .list-group-item
+        = render 'appearance', record: i
+        =< "#{i.content} "
+        = render 'enrichments/enrichments_link', record: i
+        = render('new_button_for_parent',
+          parent_id: i.id,
+          investigation_id: @investigation.id)
+        = render 'index_actions', record: i
+
+      - if i.description.present?
+        .list-group-item
+          em
+            = simple_format i.description
+
+  - children = i.children.includes(:children, :indicator_contexts)
+  - if children.present?
+    ul.list-unbullet
+      - children.order(:content_format)&.each do |child|
+        = render 'indicator', indicator: child

@@ -1,0 +1,54 @@
+= show_for @record, decorator: IndicatorDecorator do | r |
+  = r.show :content_format, value: r.decorated.show_content_format
+  = r.show :content
+  = r.show :trust_level, value: r.decorated.show_trust_level
+  = r.show :purpose, value: r.decorated.show_purpose
+  = r.show :parent_id
+    - if @record.parent_id.present?
+      = link_to @record.parent.content, @record.parent
+  = r.show :children
+    - children = @record.children
+    - children.first(10).each do |child|
+      = link_to child.content, child
+      br
+    - if children.size > 10
+      a.link data-toggle='collapse' data-turbolinks='false' href='#toggle_children'
+        span.text-info
+          | ...
+          =< fa_icon('hand-pointer-o')
+      .collapse#toggle_children
+        - children.each do |child|
+          = link_to child.content, child
+          br
+  = r.show :organization_id
+    = link_to @record.organization.name, @record.organization
+  = r.show :parent_conjunction
+    = @record.parent_conjunction
+  = r.show :created_at, value: show_date_time(@record.created_at)
+  = r.show :created_by_id
+    = link_to r.decorated.show_creator, @record.creator
+  = r.show :updated_at, value: show_date_time(@record.updated_at)
+  = r.show :updated_by_id
+    - if  @record.updater.present?
+      = link_to r.decorated.show_updater, @record.updater
+  = r.show :investigation_id
+    = link_to r.decorated.investigation.name, @record.investigation
+    br
+    = link_to r.decorated.investigation.custom_codename, @record.investigation
+  = r.show :description do
+    = simple_format @record.description
+  = r.show :indicator_contexts, value: r.decorated.show_indicator_contexts
+  = render 'custom_fields', r: r, record: record
+
+= render 'application/record_versions'
+
+=> link_to tree_show_indicators_path(investigation_id: @record.investigation.id) do
+  span.btn.btn-default
+    = fa_icon 'code-fork'
+    =< fa_icon 'bomb'
+    = Investigation.model_name.human
+=> link_to indicators_path(investigation_id: @record.investigation.id) do
+  span.btn.btn-default
+    = fa_icon 'list'
+    =< fa_icon 'bomb'
+    = Investigation.model_name.human

@@ -1,0 +1,10 @@
+.modal.fade#modal_form role="modal"
+  .modal-dialog.modal-lg role='document' style='width:80%'
+    .modal-content
+      .modal-header
+        = caption @record
+      .modal-body
+        = render 'form', record: @record
+      .modal-footer
+        button.btn.btn-default type='button' data-dismiss='modal'
+          = t('views.action.back')

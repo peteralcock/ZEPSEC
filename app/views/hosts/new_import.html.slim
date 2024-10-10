@@ -1,0 +1,70 @@
+= caption t('navigations.import_hosts')
+.well
+  = form_tag create_import_hosts_path, multipart: true do
+    .row
+      .form-group.required
+        .field
+          .col-lg-2.text-right
+            .control-label
+              strong
+                = t('labels.host.import_hosts_organization')
+          .col-lg-2
+            = autocomplete_field_tag :organization, '', autocomplete_organizations_path, id_element: '#organization_id',  class: 'form-control', autocomplete: :off, value: (@organization&.name || current_user.organization.name)
+            = hidden_field_tag :organization_id, (@organization&.id || current_user.organization.id)
+
+          .col-lg-2.text-right
+            .control-label
+              strong
+                = t('labels.file')
+
+          .col-lg-2
+            label.form-control.btn.btn-info.btn-file
+              = t('labels.attachment.select_file')
+              = file_field_tag :file, class: 'form-control'
+
+    br
+    .row
+      .actions.form-group
+        .col-lg-offset-2.col-lg-8
+          => submit_tag t('helpers.submit.save'), class: 'btn btn-success'
+          = render 'form_back_button'
+
+  br
+  .row
+    .col-lg-offset-2.col-lg-8
+      - if @messages.fetch(:errors, []).present?
+        a.link data-toggle='collapse' href='#toggle_errors'
+          strong.text-warning
+            = "#{t('labels.errors')}:"
+        .collapse#toggle_errors
+          ol
+            - @messages.fetch(:errors, [])&.each do |record_with_errors|
+              li
+                .text-danger
+                  = record_with_errors.ip
+                - record_with_errors.errors.each do |k, v|
+                  .text-warning
+                    =< k
+                  =< v
+
+      br
+      - if @messages.fetch(:not_processed_ips, nil).present?
+        a.link data-toggle='collapse' href='#toggle_not_processed'
+          strong.text-warning
+            = t('labels.not_processed')
+        .collapse#toggle_not_processed
+          ol
+            - @messages.fetch(:not_processed_ips, []).each do |ip|
+              li
+                = ip
+      br
+      - if @messages.fetch(:created_records, nil).present?
+        a.link data-toggle='collapse' href='#toggle_created'
+          strong.text-warning
+            = "#{t('labels.imported')} (#{@messages.fetch(:created_records, {}).size}/#{@messages.fetch(:rows_processed, 0)}):"
+        .collapse#toggle_created
+          ol
+            - @messages.fetch(:created_records, {}).each do |ip, id|
+              li
+                = link_to IPAddr.new(ip).to_cidr_s, host_path(id)
+      br

@@ -1,0 +1,286 @@
+ru:
+  placeholders:
+    auto: 'начните вводить имя/название или ID (работает авто дополнение)'
+    search: 'введите значение поля'
+    last_days: 'за N дней'
+    last_weeks: 'за N недель'
+    last_months: 'за N месяцев'
+    last_years: 'за N лет'
+    knowledge_base_search: 'Поиск по базе знаний'
+    user:
+      name: 'Фамилия Имя Отчество'
+      department: 'можно указать имя подразделения (если поле сверху пустое)'
+      rank: 'в виде - 001, 020, 100 и т.д (контакты с меньшим рангом отображаются вначале)'
+    link_kinds:
+      first_record_type: 'по умолчанию - пустое поле (соответствует всем типам)'
+    link:
+      description: 'Описание/примечание к связи'
+    incidents:
+      search: 'введите значение поля (имя/название, дату, ID (как #номер)) или код (состояния, важности, ущерба, тега)'
+    schedules:
+      crontab_line: '[минуты 0-59] [часы 0-23] [числа месяца 1-31] [месяцы 1-12] [дни недели 0-6] или всегда - * '
+    scan_jobs:
+      hosts: 'хост или хосты через запятую (192.168.1.1,10.0.0.1-22,172.16.5.0/24)'
+    hosts:
+      ip: 'хост или сеть (192.168.1.1 или 172.16.5.0/24)'
+      ip_auto: 'начните вводить хост или сеть, например, 192.168.1.1 или 172.16.5.0/24 (работает автодополнение)'
+    vulnerability:
+      codename_auto: 'начните вводить название уязвимости, например, CVE-210-1 (работает автодополнение)'
+
+  labels:
+    app_name: 'RISM'
+    app_full_name: 'Система менеджмента информационной безопасности'
+    add: 'Добавить'
+    default_organization_name: 'Общедоступные организации'
+    press_to_add: 'нажмите для добавления'
+    expert_mode: 'Экспертный режим (имеет приоритет перед расписанием)'
+    main_info: 'Основная информация'
+    extra_info: 'Дополнительная информация'
+    state_info: 'Информация о состоянии и изменениях'
+    changed_fields_info: 'Изменившиеся поля'
+    comment: 'Комментарий'
+    calculated_cvss_info: 'Обобщенные и вычисленные метрики и векторы CVSS'
+    cvss_info: 'Метрики и векторы CVSS'
+    products_info: 'Информация о продуктах'
+    description_info: 'Описания и ссылки'
+    custom_fields_info: 'Пользовательские поля'
+    translate: 'Перевести'
+    notify_subject: 'Уведомление от RISM'
+    advance_search: 'Продвинутый поиск'
+    yes_label: 'Да'
+    no_label: 'Нет'
+    all_label: 'Все'
+    user_has_no_roles: 'Пользователю не назначены роли - обратитесь к администратору.'
+    imported: 'Импортированы'
+    not_processed: 'Не импортированы (ошибки и дубликаты)'
+    updated: 'Обновлены'
+    errors: 'Ошибки'
+    toggle_selection: 'Выбрать/отменить выбор'
+    published: 'Опубликовано'
+    publish: 'Опубликовать'
+    subscribe: 'Подписаться'
+    unsubscribe: 'Отписаться'
+    host:
+      import_hosts_organization: 'Организация в которую будут импортированы хосты'
+    user:
+      active: 'Да'
+      not_active: 'Нет'
+      phone: 'тел.'
+    indicator:
+      danger: 'Да'
+      not_danger: 'Нет'
+      indicators_list: 'Показать/скрыть список индикаторов'
+    attachment:
+      more_files: 'Файлы'
+      attachable_file: 'Выбранный файл:'
+      select_file: 'Выберите файл'
+      file_name: 'Отображаемое имя файла (не обязательно)'
+      link_file: 'Прикрепить файл'
+    agreement:
+      prolongation: 'Да'
+      no_prolongation: 'Нет'
+      full_name: 'Договор %{prop} от %{beginning} между %{organization} и %{contractor}'
+    incident:
+      full_name: 'Номер / Имя'
+      dates_and_times: 'Даты и времена'
+      organization_link: '%{name} относится к'
+      owners: 'Владельцы (нажмите для просмотра)'
+      more_owners: 'Владельцы (нажмите для изменения)'
+    tags:
+      more_tags: 'Теги (нажмите для добавления)'
+      allowed_tags: 'Доступные для назначения теги'
+    link_kind:
+      all_resource_types: 'Все'
+    links:
+      more_links: 'Связи (нажмите для добавления)'
+      allowed_links: 'Доступные типы связи'
+      linked: 'связывается'
+      link: 'Связать'
+    version:
+      versions: 'Версии'
+      current_version: 'Текущая версия'
+      showed_version: 'Показана версия'
+      version_number: 'Номер версии'
+      more_versions: 'другие версии'
+      created_at: 'Время создания'
+      model: 'Модель записи'
+      id: 'Идентификатор версии'
+      record_id: 'Идентификатор записи'
+      event: 'Действие'
+      author: 'Автор'
+      created: 'создание'
+      updated: 'обновление'
+    link_kinds:
+      equal: 'Двунаправленная'
+      not_equal: 'Однонаправленная'
+    record_templates:
+      original_record: 'Шаблон из'
+      select_template: 'Выберите шаблон:'
+      more_content: 'Атрибуты (нажмите для просмотра)'
+    reports: 'Справки'
+    info: 'Дополнительная информация...'
+    kbase: 'База знаний/новости'
+    search: 'Результаты поиска'
+    host_service:
+      vulnerable: 'Уязвим'
+    current_legality: 'Легальность'
+    schedules:
+      current_schedule: 'Текущее расписание'
+    scan_results:
+      vulns_presence: 'Наличие уязвимостей'
+    scan_jobs:
+      working_count: 'Начато'
+      planned_count: 'В очереди'
+      working_planned_count: 'Начато / в очереди'
+    scan_job_logs:
+      status: 'Состояние'
+      started: 'Запущена'
+      finished: 'Завершена'
+      worker: 'Фоновый процесс'
+      worker_work: 'Работает'
+      worker_lost: 'Отсутствует'
+      worker_was: 'Отработал'
+      distance: 'Длительность мин.'
+    indicators:
+      template_description: "В поле 'Индикаторы' можно перечислить индикаторы в следующем формате (каждый индикатор размещается в отдельной строке, некоторые индикаторы вводятся с префиксом, оканчивающимся на двоеточие, например - other: ИНДИКАТОР, также индикатор может уточняться контекстом (при наличии префикса - следует за ним), например - (src, dst): ИНДИКАТОР или с префиксом - uri(legal): ИНДИКАТОР:"
+      other: 'other: произвольный текст (1-500 символов)'
+      registry: 'registry: реестр Windows(1-500 символов)'
+      network_service: 'Сетевой сервис (8.8.8.8:53 или 10.1.1.1:443:tcp)'
+      network_port: 'Сетевой порт (21, 22:tcp или 53:udp)'
+      network: 'IP-адрес (127.0.0.1)'
+      email_adress: 'адрес (example@example.com)'
+      email_theme: 'email_theme: тема'
+      email_content: 'email_content: сообщение'
+      uri: 'uri: http://ресурс, https://ресурс или ftp://ресурс)'
+      domain: 'domain: домен (www.example.com)'
+      hash: 'md5, sha256 или sha512 хэш'
+      filename: 'filename: название файла (отчет.doc)'
+      filesize: 'filesize: размер файла (1-500 символов, например 500Kb)'
+      process: 'process: название процесса(1-500 символов, например - psexec.exe)'
+      account: 'account: учетная запись (1-500 символов, например - Administrator)'
+    vulnerability:
+      unread: 'Ожидает'
+      read: 'Обработано'
+      none: 'Нет'
+      low: 'Низкая'
+      medium: 'Средняя'
+      high: 'Высокая'
+      critical: 'Критическая'
+      toggle: 'Переключить'
+    import_vulners_file_formats:
+      bdu_csv: 'БДУ ФСТЭК России (csv из excel)'
+    import_vulners_file_format: 'Формат файла'
+    file: 'Файл'
+    delivery_subject:
+      allowed_delivery_lists: 'Доступные для назначения списки доставки'
+      assigned_delivery_lists: 'Назначенные списки доставки'
+    delivery_recipients:
+      allowed_organizations: 'Доступные для назначения организации'
+      allowed_users: 'Доступные для назначения пользователи'
+      assigned: 'Назначенные получатели'
+    ra_agent_api: 'API для RA агента'
+  navigations:
+    config: 'Настройки'
+    contacts: 'Контакты'
+    knowledge_base: 'База знаний'
+    references: 'Справочники'
+    main_info: 'Основная информация'
+    roles: 'Роли'
+    rights: 'Права доступа'
+    departments: 'Подразделения/работники'
+    worker: 'Работник'
+    workers: 'Работники'
+    catalog: 'Прочее'
+    reports:
+      download: 'Скачать справку (бюллетень, отчет)'
+      download_filtred: 'Скачать результаты поиска по полям'
+    dashboards: 'Главная панель'
+    charts: 'Графики'
+    advanced_search: 'Поиск по полям'
+    actual_and_relevant_vulnerabilities: 'Актуальные и релевантные уязвимости'
+    investigations_incidents: 'Инциденты/исследования'
+    clone: 'Клонирование'
+    scans: 'Сканирования'
+    open_ports: 'Открытые порты'
+    new_ports: 'Новые порты (незарегистрированные как сервис)'
+    commands:
+      run: 'Выполнить команду'
+    scheduled_jobs: 'Фоновые работы в очередях'
+    queue_jobs: 'Работы в очереди'
+    queue_job_start: 'Время постановки в очередь'
+    import_vulners: 'Импортировать уязвимости'
+    import_hosts: 'Импортировать хосты'
+  roles:
+    admin: 'Администратор'
+    manager: 'Менеджер'
+    editor: 'Редактор'
+    reader: 'Читатель'
+  rights:
+    manager: 'Назначение прав'
+    editor: 'Редактирование'
+    reader: 'Чтение'
+  incidents:
+    damages:
+      not_present: 'У0 - нет'
+      unknown: 'У1 - неизвестно'
+      present: 'У2 - есть'
+    severities:
+      low: 'В0 - обычная'
+      hi: 'В1 - высокая'
+    states:
+      registered: 'С0 - зарегистрирован'
+      processed: 'С1 - обрабатывается'
+      closed: 'С2 - закрыт'
+  organization_kinds:
+    organization: 'Организация'
+    department: 'Подразделение'
+    folder: 'Папка'
+  views:
+    action:
+      new: "Новая запись -"
+      confirm: "Вы уверены?"
+      show: "Перейти"
+      info: "Показать"
+      enrich_all: "Обогатить (все доступные сервисы)"
+      add: 'Добавить'
+      run_custom_reports_result: 'Запустить выполнение'
+      edit: "Редактировать"
+      delete: "Удалить"
+      delete_all: "Удалить всё"
+      back: "Назад"
+      back_to: "Перейти (%{model})"
+      back_to_list: 'Перейти к общему списку "%{model}"'
+      find: 'Поиск'
+      certify: "Да"
+      make_template: "Создать шаблон"
+      scan: "Сканировать"
+      new_host: 'Новый хост'
+      new_host_service: 'Новый сетевой сервис'
+      new_scan_job: 'Новое сканирование'
+      legalize: 'Легализовать'
+      delegalize: 'Делегализовать'
+      change_password: 'Сменить пароль'
+      notify: 'Уведомить'
+      notifications_logs: 'Список отправленных уведомлений'
+      reset_selections: 'Сбросить выделение'
+      clone_roles: 'Клонировать роли на выделенных пользователей'
+      show_selected: 'Показать выделенных пользователей'
+      clone_roles_tooltip: 'Заменить роли для выделенных пользователей ролями текущего пользователя'
+  messages:
+    yes: 'да'
+    no: 'нет'
+    not_allowed: Нет прав доступа.
+    organization:
+      organization_not_allowed: 'нет прав для выбора организации.'
+    user:
+      password_complexity_error: 'не соответствует условиям сложности: требуется как минимум по одному символу из следующих категорий - буква в нижнем регистре, буква в верхнем регистре, цифра, специальный символ'
+  user_session:
+    email_required: должно быть адресом электронной почты
+  user_sessions:
+    sign_in: Войти в систему
+    sign_out: Выйти
+    password: пароль
+    sign_in_error: Неверный email или пароль
+    welcome: С возвращением!
+    goodbay: Всего доброго!
+    sign_in_user: Текущий пользователь

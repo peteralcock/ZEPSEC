@@ -1,0 +1,25 @@
+doctype html
+html
+  head
+    title RISM
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+
+    script type="text/javascript" src="#{asset_path("/ckeditor.js", skip_pipeline: true)}"
+    //script type="text/javascript" src="#{asset_path("/translations/ru.js", skip_pipeline: true)}"
+    = javascript_pack_tag 'ckeditor', 'data-turbolinks-track': 'reload'
+
+    = csrf_meta_tags
+    script type="text/javascript"
+      | $(document).on('turbolinks:load', function() {
+      = yield :document_ready
+      | });
+  body
+
+    = render 'layouts/header'
+
+    .container-fluid
+      = yield
+
+    #myModal

@@ -1,0 +1,48 @@
+.well
+  = render 'form_errors', record: @record
+  .row
+    = form_for @record, html: {class: 'form-horizontal'} do |f|
+
+      .form-group.required
+        .field
+          .col-lg-2.text-right
+            = f.label :role_id, class: 'control-label'
+          .col-lg-8
+            = f.collection_select :role_id, Role.all.order(:name), :id, :name, {selected: @role.id}, {class: 'form-control', disabled: @role&.id.present?}
+            - if @role&.id.present?
+              = f.hidden_field :role_id, value: @role.id
+
+      .form-group
+        .field
+          .col-lg-2.text-right
+            = f.label :organization_id, "#{Right.human_attribute_name :organization_id}", class: 'control-label'
+          .col-lg-8
+            - shaerd_org = Organization.find(1)
+            = autocomplete_field_tag :parent, '', autocomplete_organizations_path, id_element: '#right_organization_id',  class: 'form-control', value: (@record.organization&.name || shaerd_org.name), placeholder: t('placeholders.auto')
+            = f.hidden_field :organization_id, value: (@record.organization_id || shaerd_org.id)
+
+      .form-group.required
+        .field
+          .col-lg-2.text-right
+            = f.label :subject_type, class: 'control-label'
+          .col-lg-8
+            = f.collection_select :subject_type, @subject_types, :first, :last, {}, {class: 'form-control'}
+
+      .form-group
+        .field
+          .col-lg-2.text-right
+            = f.label :subject_id, class: 'control-label'
+          .col-lg-8
+            = f.number_field :subject_id, class: 'form-control'
+
+      .form-group.required
+        .field
+          .col-lg-2.text-right
+            = f.label :level, class: 'control-label'
+          .col-lg-8
+            = f.collection_select :level, @levels.sort_by {|k, v| v }.reverse, :first, :last, {}, {class: 'form-control'}
+
+      .actions.form-group
+        .col-lg-offset-2.col-lg-8
+          => f.submit t('helpers.submit.save'), class: 'btn btn-success'
+          = render 'form_back_button'

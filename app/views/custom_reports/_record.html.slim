@@ -1,0 +1,20 @@
+= show_for @record do |r|
+  = r.show :name
+  = r.show :id
+  = r.show(:organization_id,
+    value: link_to(@record.organization.name,
+    @record.organization))
+  = r.show :folder_id, value: @record.custom_reports_folder&.name
+  - if current_user.admin_editor? || current_user.can?(:edit, @record.class)
+    = r.show :statement
+  = r.show :result_format
+  = r.show :add_csv_header
+  = r.show :encoding
+  = r.show :description
+
+= render 'application/record_versions'
+
+=> link_to custom_reports_folders_path(folder_id: @record.folder_id) do
+  span.btn.btn-default
+    => fa_icon 'code-fork'
+    = CustomReportsFolder.model_name.human

@@ -1,0 +1,20 @@
+= caption @department
+= render 'departments/show_tabs', record: @department, active_tab: :users, from_external_link: true
+
+= index_search :name_cont, department_id_eq: @department.id
+= report_button_for @records, department_id: @department_id, organization_id: @organization_id
+= index_new_button @records, department_id: @department.id, organization_id: @department.organization.id
+
+= index_for @records do |t|
+  - t.header attribute: :name, sort: :desc
+  - t.header attribute: :organization_id, sort_by: :organization_name, sort: :desc
+  - t.header attribute: :job, sort: :desc
+  - t.header attribute: :email, sort: :desc
+  - t.header attribute: :phone, sort: :desc
+  - t.field { |record| link_to(record.name, record) }
+  - t.field { |record| record.organization.name }
+  - t.field { |record| record.job }
+  - t.field { |record| record.email }
+  - t.field { |record| record.phone }
+
+= render 'index_paginate', records: @records

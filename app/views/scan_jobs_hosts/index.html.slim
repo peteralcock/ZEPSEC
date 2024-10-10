@@ -1,0 +1,5 @@
+= caption @scan_job
+= render 'scan_jobs/show_tabs', record: @scan_job, active_tab: :hosts, from_external_link: true
+.col-lg-offset-1
+  .col-lg-6
+    = render 'hosts'

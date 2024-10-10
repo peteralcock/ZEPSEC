@@ -1,0 +1,28 @@
+ru:
+  activerecord:
+    models:
+      investigation:
+        one: 'Исследование/Бюллетень'
+        other: 'Исследования/Бюллетени'
+    attributes:
+      investigation:
+        enrich: 'Обогатить'
+        name: 'Имя'
+        feed_codename: 'Код ист.'
+        custom_codename: 'Код пол.'
+        organization_id: 'Организация влад.'
+        user_id: 'Пользователь созд.'
+        feed_id: 'Источник информации'
+        created_at: 'Время создания'
+        updated_at: 'Время редактирования'
+        description: 'Описание'
+        investigation_kind_id: 'Тип исследования (угрозы)'
+        indicators_list: 'Индикаторы'
+        threats:
+          other: 'Прочее'
+          network: 'Сетевая активность'
+          email: 'Email'
+          process: 'Активность программы'
+          account: 'Активность пользователя'
+        created_by_id: 'Cоздал'
+        updated_by_id: 'Отредактировал'

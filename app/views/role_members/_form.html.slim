@@ -1,0 +1,17 @@
+.well
+  = render 'form_errors', record: @record
+  .row
+    = form_for @record, html: {class: 'form-horizontal'} do |f|
+      = f.hidden_field :user_id, value: @user.id
+      .form-group.required
+        .field
+          .col-lg-2.text-right
+            = f.label :role_id, class: 'control-label'
+          .col-lg-8
+            = autocomplete_field_tag :role, '', autocomplete_roles_path, id_element: '#role_member_role_id',  class: 'form-control', autocomplete: :off, value: @record.role&.name
+            = f.hidden_field :role_id, value: @record.role_id
+
+      .actions.form-group
+        .col-lg-offset-2.col-lg-8
+          => f.submit t('helpers.submit.save'), class: 'btn btn-success'
+          = render 'form_back_button'

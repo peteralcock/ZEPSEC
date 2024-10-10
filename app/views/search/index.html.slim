@@ -1,0 +1,14 @@
+= caption t('labels.search')
+table.table.table-hover.table-bordered.table-striped
+  tbody
+    - @records.each do |record|
+      tr
+        td.fit
+          = link_to record.searchable do
+            span.text-success
+              = record.searchable.show_full_name
+            span.text-warning
+              =< "(#{record.searchable.class.model_name.human})"
+            br
+            =< record.pg_search_highlight.html_safe
+= render 'index_paginate', records: @records

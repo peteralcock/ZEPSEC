@@ -1,0 +1,13 @@
+ru:
+  activerecord:
+    models:
+      delivery_recipient:
+        one: 'Получатель в списке доставки (кому доставляется сообщение)'
+        other: 'Получатели в списке доставки (кому доставляется сообщение)'
+    attributes:
+      delivery_recipient:
+        recipientable: 'Получатель'
+        recipientable_id: 'ID получателя'
+        recipientable_type: 'Модель получателя'
+        processed: 'Обработано'
+        processed_by_id: 'Обработал'

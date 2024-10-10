@@ -1,0 +1,156 @@
+/*
+*= require jquery-ui
+*/
+// Custom bootstrap variables must be set or imported *before* bootstrap.
+@import "jquery.json-view";
+@import "railscasts";
+@import "font-awesome";
+@import "bootstrap-sprockets";
+@import "bootswatch/slate/variables";
+@import "bootstrap";
+@import "bootswatch/slate/bootswatch";
+
+.form-group.required .control-label:after {
+    content: " *";
+    color: red;
+}
+
+.form-group.recomended .control-label:after {
+    content: " *";
+    color: yellow;
+}
+
+.table td.fit,
+.table th.fit {
+    white-space: nowrap;
+    width: 1%;
+}
+
+#a:visited {color: #337ab7;}
+
+.text_dangerable:hover {color: red;}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+.big-checkbox {width: 20px; height: 20px;}
+
+/*.big-radiobutton {width: 18px; height: 18px;}*/
+[type=radio] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+[type=radio] + span {
+  cursor: pointer;
+}
+[type=radio]:checked + span {
+  display: inline-block;
+  transform: scale(1.5);
+}
+
+h3.caption {
+    display: inline;
+}
+
+.text-black
+{
+  color: #000000;
+}
+
+.text-white
+{
+  color: #FFFFFF;
+}
+
+.article
+{
+  padding: 0px;
+}
+
+.bg-white
+{
+  background-color: #FFFFF0;
+}
+
+fieldset.fieldset-border {
+    border: 1px groove #ddd !important;
+    padding: 0 1.4em 1.4em 1.4em !important;
+    margin: 0 0 1.5em 0 !important;
+    -webkit-box-shadow:  0px 0px 0px 0px #000;
+            box-shadow:  0px 0px 0px 0px #000;
+}
+
+legend.fieldset-border {
+    font-size: 1.2em !important;
+    font-weight: bold !important;
+    text-align: left !important;
+    width:auto;
+    padding:0 10px;
+    border-bottom:none;
+}
+
+fieldset {
+  font-size: 1em;
+  margin-top: 0.75em;
+  border: none;
+  border-radius: 5px;
+  background-color: rgba(150, 150, 200, 0.3);
+  overflow: hidden;
+}
+
+legend {
+  margin-left:-12px;
+  margin-right:-12px;
+  padding: 12px;
+  background-color: rgba(150, 150, 200, 1);
+  color: white;
+  border-radius: 0px;
+  width: 100%;
+}
+
+span#remove {
+  float: right;
+  margin-right: 6px;
+  margin-top: -25px;
+  position: relative;
+  z-index: 2;
+}
+
+.link:hover {
+  cursor: pointer;
+}
+
+ul.list-unbullet {
+  list-style-type: none;
+}
+li.intended {
+    margin-left:10px;
+}
+
+.chart {
+ background-color: #FFFFFF;
+ padding: 20px;
+}
+
+.clear > * {
+  all: revert;
+}

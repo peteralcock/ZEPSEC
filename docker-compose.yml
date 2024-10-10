@@ -1,0 +1,93 @@
+# For setup before first
+# 1. setup values (at least SECRET_KEY_BASE) fol environment variables
+# 2. run setup command:
+# docker-compose run --rm app bundle exec rake db:create
+# After that for start RISM every time just do:
+# docker-compose up
+version: '3.4'
+
+services:
+  app:
+    image: rism:latest
+    depends_on:
+      - database
+      - redis
+    ports:
+      - "3000:3000"
+    volumes:
+      - rism_file_storage:/app/file_storage
+      - rism_log:/app/log
+      - rism_www_config/nginx.docker.conf:/etc/nginx/nginx.conf
+      - rism_www:/app
+    env_file:
+      - .env.production.docker
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:3000/", "||", "exit", "1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    #restart: always
+
+  database:
+    image: postgres:10.14-alpine
+    volumes:
+      - rism_db_data:/var/lib/postgresql/data
+    #  - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    env_file:
+      - .env.production.docker
+    ports:
+      - '5432:5432'
+    #restart: always
+
+  redis:
+    image: redis:6.0.8-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    volumes:
+      - rism_redis_data:/var/lib/redis/data
+    env_file:
+      - .env.production.docker
+    command: redis-server
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 1s
+      retries: 5
+    #restart: always
+
+  sidekiq:
+    image: rism:latest
+    depends_on:
+      - app
+      - database
+      - redis
+    volumes:
+      - rism_file_storage:/app/file_storage
+      - rism_log:/app/log
+    env_file:
+      - .env.production.docker
+    command: sidekiq start
+    #restart: always
+
+    #  nginx:
+    #    image: nginx:1.19.3-alpine
+    #    depends_on:
+    #      - app
+    #    volumes:
+    #      - rism_www_config/nginx.docker.conf:/etc/nginx/nginx.conf
+    #      - rism_www:/app
+    #    ports:
+    #      - '443:443'
+    #    env_file:
+    #      - .env.production.docker
+    #    command: nginx start
+    #    #restart: always
+
+volumes:
+  rism_db_data:
+  rism_redis_data:
+  rism_file_storage:
+  rism_log:
+    #  rism_www:
+    #  rism_www_config:

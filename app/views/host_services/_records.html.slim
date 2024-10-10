@@ -1,0 +1,51 @@
+= index_search :state_str_or_vulnerable_str_or_name_or_host_service_status_name_or_host_service_status_prop_or_legality_str_or_port_str_or_organization_name_or_ip_str_or_protocol_or_description_cont, organization_id_eq: @organization&.id
+= report_button_for @records, organization_id: @organization.id
+- q_params = params.permit(q: {}).to_h[:q]&.reject do |_k, v|
+  - if v.respond_to?(:all?)
+    - v.all?(&:blank?)
+  - else
+    - v.blank?
+= command_button_for(records,
+  organization_id: @organization.id,
+  q: q_params)
+= index_for records, decorator: HostServiceDecorator do |t|
+  - t.header attribute: :ip_str, sort_by: :ip_str, sort: :desc
+  - t.header attribute: :port, sort: :desc
+  - t.header attribute: :protocol, sort: :desc
+  - t.header attribute: :name, sort: :desc
+  - t.header attribute: :state_str, sort: :desc
+  - t.header attribute: :host_service_status_id, sort: :desc
+  - t.header attribute: :host_service_status_changed_at, sort: :desc
+  - t.header attribute: :host_service_status_prop, sort: :desc
+  - t.header attribute: :vulnerable, sort: :desc
+  - t.header attribute: :legality, sort: :desc
+  - t.header attribute: :organization_id, sort_by: :organization_name, sort: :desc
+  - t.field do |record|
+    =< link_to new_scan_job_path(host_id: record.host_id, port_number: record.port, protocol_name: record.protocol, organization_id: @organization.id), data: { toggle: 'tooltip', placement: 'top'}, title: t('views.action.new_scan_job') do
+      span.text-success
+        =< fa_icon 'gears'
+    =< link_to record.host.ip, record.host
+  - t.field { |record| link_to(record.port, record) }
+  - t.field { |record| link_to(record.protocol, record) }
+  - t.field { |record| link_to(record.name, record) }
+  - t.field do |record|
+    - if record.state.present?
+      = link_to(record.show_state, scan_result_path(record.scan_result_id))
+    - else
+      = record.show_state
+  - t.field do |record|
+    = record.host_service_status&.name
+  - t.field do |record|
+    = show_date_time(record.host_service_status_changed_at)
+  - t.field do |record|
+    = record.host_service_status_prop
+  - t.field do |record|
+    - if record.vulnerable == true
+      span.text-danger
+        => fa_icon 'flash'
+      = link_to HostServiceDecorator.new(record).show_vulnerable, record
+  - t.field do |record|
+    span style="color:#{record.legality_color}"
+      => fa_icon 'star'
+    = link_to ScanResultDecorator.new(record).show_legality, record
+  - t.field { |record| link_to record.organization.name, record.organization }

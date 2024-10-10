@@ -1,0 +1,28 @@
+= index_search :name_or_ip_str_or_organization_name_cont, organization_id_eq: @organization&.id
+= report_button_for records, organization_id: @organization.id
+- q_params = params.permit(q: {}).to_h[:q]&.reject do |_k, v|
+  - if v.respond_to?(:all?)
+    - v.all?(&:blank?)
+  - else
+    - v.blank?
+= command_button_for(records,
+  organization_id: @organization.id,
+  q: q_params)
+= render 'search_form'
+= render 'download_search_form' if ['index', 'search'].include?(params[:action])
+= index_for records do |t|
+  - t.header attribute: :readed, fit: true, label: ''
+  - t.header attribute: :ip, sort: :desc
+  - t.header attribute: :name, sort: :desc
+  - t.header attribute: :organization_id, sort_by: :organization_name, sort: :desc
+  - t.field { |record| render 'readable', record: record }
+  - t.field do |record|
+    = link_to new_host_service_path(host_id: record.id, organization_id: @organization.id), data: { toggle: 'tooltip', placement: 'top'}, title: t('views.action.new_host_service') do
+      span.text-success
+        =< fa_icon 'sun-o'
+    =< link_to new_scan_job_path(ip: HostDecorator.new(record).show_ip, organization_id: @organization.id), data: { toggle: 'tooltip', placement: 'top'}, title: t('views.action.new_scan_job') do
+      span.text-success
+        =< fa_icon 'gears'
+    =< link_to(HostDecorator.new(record).show_ip, record)
+  - t.field { |record| link_to(record.name, record) }
+  - t.field { |record| link_to record.organization.name, record.organization }

@@ -1,0 +1,46 @@
+table.table.table-hover.table-bordered.table-striped
+  caption
+    a.link data-toggle='collapse' data-turbolinks='false' href='#toggle_links'
+      strong
+        = fa_icon 'plus-circle'
+        =< "#{t('labels.press_to_add')}"
+    br
+    = render 'errors', record: @link
+
+  thead
+    - @record.links.includes(:link_kind, :second_record).group_by { |link| "#{LinkKindDecorator.new(link.link_kind).show_long_name}" }.sort.each do |link_kind_name, links|
+      tr
+        td.col-md-2.text-right
+           strong.text-info
+             =< "#{link_kind_name}"
+        td
+          - links.each do |link|
+            =< link_to link.second_record, class: 'link', data: { toggle: 'tooltip', placement: 'top'}, title: link.description do
+              = fa_icon 'link', style: "color:#{links.first.link_kind.color}"
+              =< link.second_record.show_full_name
+            =< link_to link, method: :delete, remote: true, data: { confirm: t('views.action.confirm') } do
+              span.text-danger
+                = fa_icon 'remove'
+            br
+
+  tbody id='toggle_links' class="#{'collapse' unless @unfold_links}"
+    tr
+      td.col-md-2.text-warning.text-right
+        strong
+          =< "#{t('labels.links.allowed_links')}:"
+      td
+        ul.nav.nav-tabs role='tablist'
+          - LinkKind.allowed_to_record(record).sort_by { |link_kind| "#{LinkKindDecorator.new(link_kind).show_long_name}" }.each do |link_kind|
+            li role='presentation' class="#{'active' if @link_kind&.id == link_kind.id}"
+              a.link role='tab' aria-controls="link_kind_#{link_kind.id}" data-toggle='tab' href="#link_kind_#{link_kind.id}" title="#{link_kind.description}"
+                = fa_icon 'link', style: "color:#{link_kind.color}"
+                strong
+                  =< "#{LinkKindDecorator.new(link_kind).show_long_name}"
+
+        .tab-content
+          - LinkKind.allowed_to_record(record).each do |link_kind|
+            div class="tab-pane#{' active' if @link_kind&.id == link_kind.id}" id="link_kind_#{link_kind.id}" role='tab-panel'
+              br
+              strong
+                = "#{I18n.t('labels.links.linked')} #{LinkKindDecorator.new(link_kind).show_second_record_type}"
+              = render 'links/links_form', link_kind: link_kind, record: record

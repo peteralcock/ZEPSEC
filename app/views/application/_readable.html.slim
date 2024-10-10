@@ -1,0 +1,21 @@
+- if record.respond_to?(:changed_fields)
+  - changed_fields = record.changed_fields.map do |f|
+    - if record.respond_to?(:__getobj__)
+      - record.__getobj__.class.human_attribute_name(f.to_sym)
+    - else
+      - record.class.human_attribute_name(f.to_sym)
+  - changed_fields = changed_fields.join(', ')
+. id="#{record.id}_readable"
+  = link_to(polymorphic_path(record, action: :toggle_readable),
+    method: :patch,
+    remote: true,
+    class: 'btn-link',
+    data_toggle: 'tooltip',
+    title: changed_fields)
+      - case record.read_status(current_user)
+      - when :unreaded
+          = fa_icon 'circle-o', class: 'text-danger'
+      - when :readed
+          = fa_icon 'circle', class: 'text-success'
+      - when :unreaded_update
+          = fa_icon 'circle', class: 'text-warning'

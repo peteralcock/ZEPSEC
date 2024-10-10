@@ -1,0 +1,37 @@
+table.table.table-hover.table-bordered.table-striped
+  thead.thead-dark
+    tr
+      - headers.each do |header|
+        th
+          - if header[:sort]
+            - if header[:sort_array]
+              = sort_link @q, header[:sort_by], header[:sort_array], default_order: header[:sort] do
+                span.text-info
+                  = header[:label]
+            - else
+              = sort_link @q, header[:sort_by], default_order: header[:sort] do
+                span.text-info
+                  = header[:label]
+          - else
+            span.text-info
+              = header[:label]
+      - if options[:actions]
+        th.fit
+  tbody
+    - if top_rows.present?
+      - top_rows.each do |top_row|
+        = top_row
+    - records.each do |record|
+      tr
+        - field_handlers.each_with_index do |handler, i|
+          - if headers[i].fetch(:fit, false)
+            td.fit
+              - field = capture { handler.call(record) }
+              = field
+          - else
+            td
+              - field = capture { handler.call(record) }
+              = field
+        - if options[:actions]
+          td.fit
+            = render 'helpers/index_actions', record: record

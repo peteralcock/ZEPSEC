@@ -1,0 +1,105 @@
+= render 'application/flash'
+
+- editor = current_user.admin_editor? || current_user.can?(:edit, 'Article')
+
+= form_tag articles_folders_select_path do
+  - if editor
+    = hidden_field_tag :articles_folder_id, @articles_folder.id
+    = button_tag type: 'submit', class: 'btn btn-default' do
+      span
+        => fa_icon 'cut'
+      = t('helpers.submit.cut')
+
+    = link_to(articles_folders_paste_path(articles_folder_id: @articles_folder.id),
+      class: 'btn btn-default',
+      method: :put) do
+      span class=('text-primary' unless session[:selected_articles_folders].present? || session[:selected_articles].present?)
+        => fa_icon 'paste'
+        = t('helpers.submit.paste')
+
+    = link_to(articles_folders_reset_path(articles_folder_id: @articles_folder.id),
+      class: 'btn btn-default') do
+      span class=('text-primary' unless session[:selected_articles_folders].present? || session[:selected_articles].present?)
+        => fa_icon 'undo'
+        = t('helpers.submit.reset')
+
+    .pull-right
+      .btn-group
+        = link_to(articles_path(articles_folder_id: @articles_folder.id),
+          method: :post,
+          class: 'btn btn-default') do
+          i.text-success
+            = fa_icon 'plus-circle'
+          =< t('helpers.submit.create', model: Article.model_name.human)
+
+    = index_new_button(records, articles_folder_id: @articles_folder.id)
+
+  table.table.table-hover.table-bordered.table-striped
+    thead.thead-dark
+      tr.table-active
+        td
+          h3
+            =< link_to articles_folders_path do
+              | /
+              =<> fa_icon 'home'
+            - @articles_folder.top_level_articles_folders&.reverse&.each do |d|
+              = link_to articles_folders_path(articles_folder_id: d.parent&.id) do
+                =<> d.parent&.name
+                | /
+
+            - if @articles_folder.name
+              span.text-warning
+                =< fa_icon 'folder-open'
+                =< @articles_folder.name
+
+              =< link_to(articles_folders_path(articles_folder_id: @articles_folder.parent&.id), class: 'btn btn-link') do
+                => fa_icon 'arrow-up'
+
+      - if editor
+        tr.table-active
+          td
+            input type='checkbox' id='selectAllArticles' value='selectAllArticles'
+              =< fa_icon 'newspaper-o'
+            =<> '/'
+            input type='checkbox' id='selectAllArticlesFolders' value='selectAllArticlesFolders'
+              =< fa_icon 'folder-open'
+
+    - @articles.each do |article|
+      tr.table-active
+        td
+          - if editor
+              = check_box_tag 'article_ids[]', article.id
+          = link_to polymorphic_path(article), class: 'btn btn-link' do
+            - if session[:selected_articles]&.include? article.id.to_s
+              span.text-danger *
+            - if article.published?
+              span.text-success
+                =< fa_icon 'newspaper-o'
+            - else
+              span.text-danger
+                =< fa_icon 'newspaper-o'
+            - if article.created_at == article.updated_at
+              span.text-danger
+                =< article.name
+            - else
+              =< article.name
+
+          - if editor
+            =< render 'helpers/index_actions', record: article
+
+    - records.each do |record|
+      tr.table-active
+        td
+          - if editor
+            = check_box_tag 'articles_folder_ids[]', record.id
+
+          = link_to(articles_folders_path(articles_folder_id: record.id),
+            class: 'btn btn-link') do
+            - if session[:selected_articles_folders]&.include? record.id.to_s
+              span.text-danger *
+            span.text-warning
+              =< fa_icon 'folder'
+            =< record.name
+
+          - if editor
+            = render 'helpers/index_actions', record: record

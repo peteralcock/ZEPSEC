@@ -1,0 +1,9 @@
+= index_search :name_cont
+= index_for records do |t|
+  - t.header attribute: :name, sort: :desc
+  - t.header attribute: :options
+  - t.header attribute: :queue_number
+  - t.field { |record| link_to(record.name, record) }
+  - t.field do |record|
+    = record.show_nmap_options
+  - t.field { |record| link_to(record.queue_number, record) }

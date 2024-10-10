@@ -1,0 +1,62 @@
+h3
+  span.text-info
+    => fa_icon 'database'
+    | VirusTotal
+  span
+    =< @enrichmentable.content
+hr
+h4
+  span.text-success
+    | ASN:
+  span
+    =<> @enrichment.content.fetch('asn', '')
+  span.text-success
+    | AS owner:
+  span
+    =<> @enrichment.content.fetch('as_owner', '')
+  span.text-success
+    | Country:
+  span
+    =<> @enrichment.content.fetch('country', '')
+  span.text-success
+    | Network:
+  span
+    =<> @enrichment.content.fetch('network', '')
+a.link data-toggle='collapse' data-turbolinks='false' href='#toggle_whois'
+  h4
+    span.text-info
+      | WHOIS:
+.collapse#toggle_whois
+  - @enrichment.content.fetch('whois', '').split(/\n/).each do |str|
+    span.text-success
+      = str.match(/^([\w\/-]+\s*)+:/)
+    span
+      =< str.sub(/^([\w\/-]+\s*)+:/, '')
+    br
+a.link data-toggle='collapse' data-turbolinks='false' href='#toggle_resolutions'
+  h4
+    span.text-info
+      | Resolutions :
+.collapse#toggle_resolutions
+  - @enrichment.content.fetch('resolutions', []).each do |r|
+    span.text-success
+      = r.fetch('hostname','')
+    span
+      =< r.fetch('last_resolved','')
+    br
+a.link data-toggle='collapse' data-turbolinks='false' href='#toggle_urls'
+  h4
+    span.text-info
+      | URLs:
+.collapse#toggle_urls
+  - @enrichment.content.fetch('detected_urls', []).each do |r|
+    span.text-success
+      => r.fetch('url','')
+    span.label.label-info
+      => r.fetch('total','')
+    span.label.label-danger
+      =< r.fetch('positives','')
+    span
+      =< r.fetch('scan_date','')
+    br
+= render 'raw', content: @enrichment.content

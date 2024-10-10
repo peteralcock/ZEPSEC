@@ -1,0 +1,638 @@
+- decorated = VulnerabilityDecorator.new(@record)
+- previous_record = record&.versions&.last&.reify
+- previous_decorated = VulnerabilityDecorator.new(previous_record)
+.panel.panel-default
+  .panel-heading
+    caption
+      a.link data-toggle='collapse' href='#toggle_state_info'
+        strong
+          = t('labels.state_info')
+        =< fa_icon('hand-pointer-o')
+  .list-group.collapse#toggle_state_info
+    .list-group-item
+      .row
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:state)
+        .col-md-2
+          = decorated.show_state
+          = render('previous_version',
+            field: :state,
+            record: @record,
+            content: (previous_decorated.show_state if previous_decorated.present?))
+    .list-group-item
+      .row
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:feed)
+        .col-md-2
+          = decorated.show_feed
+          = render('previous_version',
+            field: :feed,
+            record: @record,
+            content: (previous_decorated.show_feed if previous_decorated.present?))
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:blocked)
+        .col-md-3
+          = decorated.show_blocked
+          = render('previous_version',
+            field: :blocked,
+            record: @record,
+            content: (previous_decorated.show_blocked if previous_decorated.present?))
+    .list-group-item
+      .row
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:created_at)
+        .col-md-2
+          = show_date_time(@record.created_at)
+          = render('previous_version',
+            field: :created_at,
+            record: @record,
+            content: show_date_time(@record.previous_version :created_at))
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:updated_at)
+        .col-md-3
+          = show_date_time(@record.updated_at)
+          = render('previous_version',
+            field: :updated_at,
+            record: @record,
+            content: show_date_time(@record.previous_version :updated_at))
+    .list-group-item
+      .row
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:created_by_id)
+        .col-md-2
+          = link_to decorated.show_creator, @record.creator
+          = render('previous_version',
+            field: :created_by_id,
+            record: @record,
+            content: previous_record&.creator&.name)
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:updated_by_id)
+        .col-md-3
+          = link_to decorated.show_updater, @record.updater
+          = render('previous_version',
+            field: :updated_by_id,
+            record: @record,
+            content: previous_record&.updater&.name)
+
+    .list-group-item
+      .row
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:custom_published)
+        .col-md-2
+          = show_date_time(@record.custom_published)
+          = render('previous_version',
+            field: :custom_published,
+            record: @record,
+            content: show_date_time(@record.previous_version :custom_published))
+
+.panel.panel-default
+  .panel-heading
+    caption
+      a.link data-toggle='collapse' href='#toggle_main_info'
+        strong
+          = t('labels.main_info')
+        =< fa_icon('hand-pointer-o')
+  .list-group.collapse.in#toggle_main_info
+    .list-group-item
+      .row
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:codename)
+        .col-md-2
+          = render 'codename', record: decorated
+          = render('previous_version',
+            record: @record,
+            field: :codename,
+            content: previous_record&.codename)
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:custom_codenames)
+        .col-md-2
+          = decorated.show_custom_codenames
+          = render('previous_version',
+            field: :custom_codenames,
+            record: @record,
+            content: (previous_decorated.show_custom_codenames if previous_decorated.present?))
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:cwe)
+        .col-md-2
+          - @record.cwe.each do |link|
+            a href='https://nvd.nist.gov/vuln/categories'
+              = "#{link} "
+          = render('previous_version',
+            field: :cwe,
+            record: @record,
+            content: (previous_decorated.show_cwe if previous_decorated.present?))
+    .list-group-item
+      .row
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:published)
+        .col-md-2
+          = show_date_time(@record.published) if record.state != 'not_published'
+          = render('previous_version',
+            field: :published,
+            record: @record,
+            content: show_date_time(@record.previous_version :published))
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:modified)
+        .col-md-3
+          = show_date_time(@record.modified) if record.state != 'not_published'
+          = render('previous_version',
+            field: :modified,
+            record: @record,
+            content: show_date_time(@record.previous_version :modified))
+    .list-group-item
+      .row
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:vulnerability_kind_id)
+        .col-md-2
+          = record.vulnerability_kind&.name
+          = render('previous_version',
+            field: :vulnerability_kind_id,
+            record: @record,
+            content: (previous_decorated.vulnerability_kind&.name if previous_decorated.present?))
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:vulnerability_bulletins)
+        .col-md-3
+          = render 'vulnerability_bulletins', record: record
+
+    .list-group-item
+      .row
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:custom_actuality)
+        .col-md-2
+          = render 'custom_actuality', record: decorated
+          = render('previous_version',
+            field: :custom_actuality,
+            record: @record,
+            content: (previous_decorated.show_custom_actuality if previous_decorated.present?))
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:actuality)
+        .col-md-2
+          = decorated.show_actuality
+          = render('previous_version',
+            field: :actuality,
+            record: @record,
+            content: (previous_decorated.show_actuality if previous_decorated.present?))
+    .list-group-item
+      .row
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:custom_relevance)
+        .col-md-2
+          = render 'custom_relevance', record: decorated
+          = render('previous_version',
+            field: :custom_relevance,
+            record: @record,
+            content: (previous_decorated.show_custom_relevance if previous_decorated.present?))
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:relevance)
+        .col-md-2
+          = decorated.show_relevance
+          = render('previous_version',
+            field: :relevance,
+            record: @record,
+            content: (previous_decorated.show_relevance if previous_decorated.present?))
+    .list-group-item
+      .row
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:processed)
+        .col-md-2
+          = render 'processed', record: decorated
+          = render('previous_version',
+            field: :processed,
+            record: @record,
+            content: '')
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:processed_by_id)
+        .col-md-2
+          = link_to @record.processor&.name || '', @record.processor
+          = render('previous_version',
+            field: :processed_by_id,
+            record: @record,
+            content: (previous_record.processor&.name '' if previous_decorated.present?))
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:processed_at)
+        .col-md-2
+           = show_date_time(record.processed_at)
+
+.panel.panel-default
+  .panel-heading
+    caption
+      a.link data-toggle='collapse' href='#toggle_calculated_cvss_info'
+        strong
+          = t('labels.calculated_cvss_info')
+        =< fa_icon('hand-pointer-o')
+  .list-group.collapse.in#toggle_calculated_cvss_info
+    .list-group-item
+      .row
+        .col-md-2.text-right
+          strong.text-success
+            = @record.class.human_attribute_name(:criticality)
+        .col-md-2
+          = render 'criticality', record: decorated
+        .col-md-2.text-right
+          strong.text-success
+            = @record.class.human_attribute_name(:custom_criticality)
+        .col-md-2
+          = decorated.show_custom_criticality
+        .col-md-2.text-right
+          strong.text-success
+            = @record.class.human_attribute_name(:cvss_av)
+        .col-md-2
+         = render 'cvss_av', record: decorated
+    .list-group-item
+      .row
+        .col-md-2.text-right
+          strong.text-success
+            = @record.class.human_attribute_name(:cvss)
+        .col-md-2
+          = decorated.show_cvss
+        .col-md-2.text-right
+          strong.text-success
+            = @record.class.human_attribute_name(:exploitability)
+        .col-md-2
+          = decorated.show_exploitability
+        .col-md-2.text-right
+          strong.text-success
+            = @record.class.human_attribute_name(:impact)
+        .col-md-2
+          = decorated.show_impact
+    .list-group-item
+      .row
+        .col-md-2.text-right
+          strong.text-success
+            = @record.class.human_attribute_name(:vector)
+        .col-md-10
+            = decorated.show_cvss_vector
+
+.panel.panel-default
+  .panel-heading
+    caption
+      a.link data-toggle='collapse' href='#toggle_cvss_info'
+        strong
+          = t('labels.cvss_info')
+        =< fa_icon('hand-pointer-o')
+  .list-group.collapse#toggle_cvss_info
+    .list-group-item
+      .row
+        .col-md-2.text-right
+          strong.text-success
+            = @record.class.human_attribute_name(:exploit_maturity)
+        .col-md-2
+          = decorated.show_exploit_maturity
+          = render('previous_version',
+            field: :exploit_maturity,
+            record: @record,
+            content: (previous_decorated.show_exploit_maturity if previous_decorated.present?))
+        .col-md-2.text-right
+          strong.text-success
+            = @record.class.human_attribute_name(:custom_exploit_maturity)
+        .col-md-2
+          = decorated.show_custom_exploit_maturity
+          = render('previous_version',
+            field: :custom_exploit_maturity,
+            record: @record,
+            content: (previous_decorated.show_custom_exploit_maturity if previous_decorated.present?))
+    .list-group-item
+      .row
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:cvss3)
+        .col-md-2
+          = @record.cvss3
+          = render('previous_version',
+            field: :cvss3,
+            record: @record,
+            content: (previous_decorated.cvss3 if previous_decorated.present?))
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:cvss3_exploitability)
+        .col-md-2
+          = @record.cvss3_exploitability
+          = render('previous_version',
+            field: :cvss3_exploitability,
+            record: @record,
+            content: (previous_decorated.cvss3_exploitability if previous_decorated.present?))
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:cvss3_impact)
+        .col-md-2
+          = @record.cvss3_impact
+          = render('previous_version',
+            field: :cvss3_impact,
+            record: @record,
+            content: (previous_decorated.cvss3_impact if previous_decorated.present?))
+    .list-group-item
+      .row
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:cvss3_vector)
+        .col-md-2
+          = @record.cvss3_vector
+          = render('previous_version',
+            field: :cvss3_vector,
+            record: @record,
+            content: (previous_decorated.cvss3_vector if previous_decorated.present?))
+    .list-group-item
+      .row
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:custom_cvss3)
+        .col-md-2
+          = @record.custom_cvss3
+          = render('previous_version',
+            field: :custom_cvss3,
+            record: @record,
+            content: (previous_decorated .custom_cvss3 if previous_decorated.present?))
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:custom_cvss3_exploitability)
+        .col-md-2
+          = @record.custom_cvss3_exploitability
+          = render('previous_version',
+            field: :custom_cvss3_exploitability,
+            record: @record,
+            content: (previous_decorated.custom_cvss3_exploitability if previous_decorated.present?))
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:custom_cvss3_impact)
+        .col-md-2
+          = @record.custom_cvss3_impact
+          = render('previous_version',
+            field: :custom_cvss3_impact,
+            record: @record,
+            content: (previous_decorated.custom_cvss3_impact if previous_decorated.present?))
+    .list-group-item
+      .row
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:custom_cvss3_vector)
+        .col-md-10
+          = @record.custom_cvss3_vector
+          = render('previous_version',
+            field: :custom_cvss3_vector,
+            record: @record,
+            content: (previous_decorated.custom_cvss3_vector if previous_decorated.present?))
+    .list-group-item
+      .row
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:cvss2)
+        .col-md-2
+          = @record.cvss2
+          = render('previous_version',
+            field: :cvss2,
+            record: @record,
+            content: (previous_decorated.cvss2 if previous_decorated.present?))
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:cvss2_exploitability)
+        .col-md-2
+          = @record.cvss2_exploitability
+          = render('previous_version',
+            field: :cvss2_exploitability,
+            record: @record,
+            content: (previous_decorated.cvss2_exploitability if previous_decorated.present?))
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:cvss2_impact)
+        .col-md-2
+          = @record.cvss2_impact
+          = render('previous_version',
+            field: :cvss2_impact,
+            record: @record,
+            content: (previous_decorated.cvss2_impact if previous_decorated.present?))
+    .list-group-item
+      .row
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:cvss2_vector)
+        .col-md-10
+          = @record.cvss2_vector
+          = render('previous_version',
+            field: :cvss2_vector,
+            record: @record,
+            content: (previous_decorated.cvss2_vector if previous_decorated.present?))
+
+.panel.panel-default
+  .panel-heading
+    caption
+      a.link data-toggle='collapse' href='#toggle_products_info'
+        strong
+          = t('labels.products_info')
+        =< fa_icon('hand-pointer-o')
+  .list-group.collapse.in#toggle_products_info
+    .list-group-item
+      .row
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:vendors)
+        .col-md-3
+          = decorated.show_vendors
+          = render('previous_version',
+            field: :vendors,
+            record: @record,
+            content: (previous_decorated.show_vendors if previous_decorated.present?))
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:custom_vendors)
+        .col-md-3
+          = decorated.show_custom_vendors
+          = render('previous_version',
+            field: :custom_vendors,
+            record: @record,
+            content: (previous_decorated.show_custom_vendors if previous_decorated.present?))
+    .list-group-item
+      .row
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:products)
+        .col-md-3
+          = decorated.show_products
+          = render('previous_version',
+            field: :products,
+            record: @record,
+            content: (previous_decorated.show_products if previous_decorated.present?))
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:custom_products)
+        .col-md-3
+          = decorated.show_custom_products
+          = render('previous_version',
+            field: :custom_products,
+            record: @record,
+            content: (previous_decorated.show_custom_products if previous_decorated.present?))
+    .list-group-item
+      .row
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:versions)
+        .col-md-9
+          = render 'versions_by_products', decorated: decorated
+          = render('previous_version',
+            field: :versions,
+            record: @record,
+            direction: 'bottom',
+            content: (previous_decorated.show_versions_by_products_text if previous_decorated.present?))
+
+.panel.panel-default
+  .panel-heading
+    caption
+      a.link data-toggle='collapse' href='#toggle_descriptions_info'
+        strong
+          = t('labels.description_info')
+        =< fa_icon('hand-pointer-o')
+  .list-group.collapse.in#toggle_descriptions_info
+    .list-group-item
+      .row
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:references)
+        .col-md-10
+          = simple_format(auto_link(decorated.show_references_string(separator: "\n")))
+          = render('previous_version',
+            field: :references,
+            record: @record,
+            content: (previous_decorated.show_references_string if previous_decorated.present?))
+    .list-group-item
+      .row
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:custom_references)
+        .col-md-10
+          = simple_format(auto_link(@record.custom_references))
+          = render('previous_version',
+            field: :custom_references,
+            record: @record,
+            content: (previous_decorated.custom_references if previous_decorated.present?))
+    .list-group-item
+      .row
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:description)
+        .col-md-10
+          = decorated.show_description_string
+          = link_to(t('labels.translate'),
+            translate_path(text: @record.description&.first),
+            method: :post,
+            remote: true,
+            class: 'btn btn-link')
+          = render('previous_version',
+            field: :description,
+            direction: 'bottom',
+            record: @record,
+            content: (previous_decorated.show_description_string if previous_decorated.present?))
+          #translated
+    .list-group-item
+      .row
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:custom_description)
+        .col-md-10
+          = @record.custom_description
+          = render('previous_version',
+            field: :custom_description,
+            direction: 'bottom',
+            record: @record,
+            content: (previous_record.custom_description if previous_decorated.present?))
+
+.panel.panel-default
+  .panel-heading
+    caption
+      a.link data-toggle='collapse' href='#toggle_custom_fields_info'
+        strong
+          = t('labels.custom_fields_info')
+        =< fa_icon('hand-pointer-o')
+  .list-group.collapse#toggle_custom_fields_info
+    - @record.custom_fields&.each do |name, value|
+      .list-group-item
+        .row
+          .col-md-2.text-right
+            strong.text-info
+              = name
+          .col-md-10
+            - if @record.custom_field_data_type(name) == 'text'
+              = simple_format(value)
+            - else
+              = value
+            = render('previous_version',
+              field: :custom_fields,
+              direction: 'bottom',
+              record: @record,
+              content: (previous_record.custom_fields if previous_decorated.present?))
+
+.panel.panel-default
+  .panel-heading
+    caption
+      a.link data-toggle='collapse' href='#toggle_changed_fields'
+        strong
+          = t('labels.changed_fields_info')
+        =< fa_icon('hand-pointer-o')
+  .list-group.collapse#toggle_changed_fields
+    .list-group-item
+      .row
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:changed_fields)
+        .col-md-10
+          = simple_format decorated.show_changed_fields(separator: "\n")
+
+.panel.panel-default
+  .panel-heading
+    caption
+      a.link data-toggle='collapse' href='#toggle_extra'
+        strong
+          = t('labels.extra_info')
+        =< fa_icon('hand-pointer-o')
+  .list-group.collapse#toggle_extra
+    .list-group-item
+      .row
+        .col-md-2.text-right
+          strong.text-info
+            = @record.class.human_attribute_name(:cpe)
+        .col-md-10
+          .raw-cpe
+          javascript:
+            $('.raw-cpe').jsonView('#{raw escape_javascript(decorated.show_cpe_array.to_json)}');
+          = render('previous_version',
+            field: :cpe,
+            direction: 'bottom',
+            record: @record,
+            content: (previous_decorated.show_cpe_array if previous_decorated.present?))
+
+.panel.panel-default
+  .panel-heading
+    caption
+      a.link data-toggle='collapse' href='#toggle_raw'
+        strong
+          = @record.class.human_attribute_name(:raw_data)
+        =< fa_icon('hand-pointer-o')
+  .list-group.collapse#toggle_raw
+    .list-group-item
+      .row
+        .col-md-12
+          .raw-data
+          javascript:
+            $('.raw-data').jsonView('#{raw escape_javascript(@record.raw_data.to_json)}');
+
+= render 'application/record_versions'

@@ -1,0 +1,19 @@
+= show_for @record do |r|
+  = r.show :name
+  = r.show :organization_id do
+    = link_to @record.organization.name, record.organization
+  = r.show :department_id do
+    = link_to UserDecorator.new(@record).dep_name, @record.department
+  = r.show :job
+  = r.show :rank
+  = r.show :email
+  = r.show :phone
+  = r.show :mobile_phone
+  - if current_user.admin_editor? || current_user == @record
+    = r.show :active, value: UserDecorator.new(@record).show_active
+    = r.show :api_user, value: UserDecorator.new(@record).show_api_user
+  - if current_user == @record && @record.api_user?
+    = r.show :api_token do
+      .api_token
+        = render 'api_token', record: @record
+  = r.show :description

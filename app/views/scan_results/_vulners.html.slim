@@ -1,0 +1,16 @@
+- record.vulners.sort_by{ |vulner| vulner.fetch('cvss', '0').to_i }.reverse.each do |vulner|
+  - nvd_url = "https://nvd.nist.gov/vuln/search/results?form_type=Basic&results_type=overview&query=#{vulner.fetch('cve','')}&search_type=all"
+  = link_to nvd_url do
+    span.text-danger
+      = "#{vulner.fetch('cve','')}, "
+  - unless vulner.fetch('cvss', 0).to_i == 0
+    span.text-warning
+      = "CVSS=#{vulner.fetch('cvss', '_')}, "
+  span.text-info
+    = "#{vulner.fetch('summary', '')}"
+  br
+  - vulner.fetch('references', []).each do |link|
+    a href=link
+      = "#{link}, "
+  br
+  br

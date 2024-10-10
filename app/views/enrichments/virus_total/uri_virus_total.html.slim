@@ -1,0 +1,41 @@
+h3
+  span.text-info
+    => fa_icon 'database'
+    | VirusTotal
+  span
+    =< @enrichmentable.content
+hr
+h4
+  span.text-success
+    | Total:
+  span.tex-info
+    =<> @enrichment.content.fetch('total', '')
+  span.text-success
+    | Positives:
+  - if @enrichment.content.fetch('positives', 0).to_i > 0
+    span.text-danger
+      =<> @enrichment.content.fetch('positives', '')
+  - else
+    span
+      =<> @enrichment.content.fetch('positives', '')
+  span.text-success
+    | Scan date:
+  span.tex-info
+    =<> @enrichment.content.fetch('scan_date', '')
+
+a.link data-toggle='collapse' data-turbolinks='false' href='#toggle_scans'
+  h4
+    span.text-info
+      | Scans:
+.collapse#toggle_scans
+  - @enrichment.content.fetch('scans', []).each do |antivirus, value|
+    span.text-success
+      => antivirus
+      - if value.fetch('detected', false)
+        span.label.label-danger
+          =<> value.fetch('result', '')
+      - else
+        span.label.label-info
+          =< value.fetch('result', '')
+      br
+= render 'raw', content: @enrichment.content

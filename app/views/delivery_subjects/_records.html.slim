@@ -1,0 +1,16 @@
+= index_for records, actions: false do |t|
+  - t.header attribute: :readed, fit: true, label: ''
+  - t.header attribute: :created_at, sort: :desc
+  - t.header attribute: :processed
+  - t.header attribute: :name
+  - t.field { |record| render 'readable', record: record }
+  - t.field { |record| link_to(show_date_time(record.created_at), record.deliverable) }
+  - t.field do |record|
+    = render 'processing_logs/processed', record: record
+  - t.field do |record|
+    = link_to record.deliverable do
+      span.text-warning
+        = record.deliverable.class.model_name.human(count: 1)
+      =< record.deliverable.name
+      - if record.deliverable.respond_to?(:delivery_subject_codename)
+        =< "(#{record.deliverable.delivery_subject_codename})"

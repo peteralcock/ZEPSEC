@@ -1,0 +1,36 @@
+= report_button_for @record, investigation_id: @record.id
+= render 'publication', record: @record, publication: @record.publication
+= show_for @record, decorator: InvestigationDecorator do |r|
+  = r.show :created_at, value: show_date_time(@record.created_at)
+  = r.show :name
+  = r.show :feed_codename
+  = r.show :custom_codename
+  = r.show :organization_id
+    = link_to @record.organization.name, @record.organization
+  = r.show :created_by_id
+    = link_to r.decorated.show_creator, @record.creator
+  = r.show :updated_by_id
+    - if @record.updater.present?
+      = link_to r.decorated.show_updater, @record.updater
+  = r.show :feed_id
+    = link_to @record.feed.name, @record.feed
+  = r.show :investigation_kind_id
+    = link_to @record.investigation_kind.name, @record.investigation_kind
+  - @record.custom_fields&.each do |name, value|
+    = r.show :custom_fields, label: name, value: value
+  = r.show :description
+    = simple_format @record.description
+
+- if current_user.admin_editor? || current_user.can?(:edit, 'Enrichment')
+  - enrichmentables = record.indicators
+  - if enrichmentables.present?
+    = link_to(enrichments_path(enrichmentable_type: enrichmentables.first.model_name,
+      enrichmentable_ids: enrichmentables.pluck(:id)),
+      data: {confirm: t('views.action.confirm')},
+      method: :post,
+      remote: true,
+      class: 'btn btn-link') do
+        span.btn.btn-success
+          = t('views.action.enrich_all')
+
+= render 'application/record_versions'

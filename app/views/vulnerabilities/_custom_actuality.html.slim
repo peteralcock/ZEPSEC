@@ -1,0 +1,6 @@
+- if record.custom_actuality_actual?
+  - klass = 'text-warning'
+- elsif record.custom_actuality_not_actual?
+  - klass ='text-success'
+= tag.span class: klass
+  = record.show_custom_actuality

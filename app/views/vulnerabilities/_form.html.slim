@@ -1,0 +1,341 @@
+.well
+  = render 'form_errors', record: @record
+  .row
+    = form_for @record, html: {class: 'form-horizontal'} do |f|
+
+      = hidden_field_tag :template_id, @template_id
+
+      - decorated = VulnerabilityDecorator.new(@record)
+
+      .form-group.required
+        .field
+          .col-lg-2.text-right
+            = f.label :custom_published, class: 'control-label'
+          .col-lg-3
+            = f.date_select :custom_published, { prompt: true, use_two_digit_numbers: true, end_year: end_year, start_year: start_year, include_blank: true, ignore_time: true }, { class: 'form-control', style: 'width:30%; display:inline' }
+            = link_to '#', data: { set_date: 'custom_published', turbolinks: false } do
+              = fa_icon 'calendar'
+          .col-lg-2
+            = f.time_select :custom_published, { prompt: true, selected: (@record.custom_published) , include_blank: true, ignore_date: true }, { style: 'width:40%; display:inline', class: 'form-control' }
+            = link_to '#', data: { set_time: 'custom_published', turbolinks: false } do
+              = fa_icon 'clock-o'
+          .col-lg-2
+            .checkbox
+               label
+                 = f.check_box :processed, class: 'big-checkbox'
+                 strong
+                  | #{t('activerecord.attributes.vulnerability.processed')}
+
+      .form-group.recomended
+        .field
+          .col-lg-2.text-right
+            = f.label :vulnerability_kind_id, class: 'control-label'
+          .col-lg-2
+            = f.collection_select :vulnerability_kind_id, VulnerabilityKind.all, :id, :name, { include_blank: true }, { class: 'form-control' }
+
+
+      .form-group.required
+        .field
+          .col-lg-2.text-right
+            = f.label :codename, class: 'control-label'
+          .col-lg-2
+            = f.text_field :codename, class: 'form-control', disabled: @record.blocked, placeholder: t('activerecord.attributes.vulnerability.ph_codename')
+          .col-lg-2.text-right
+            = f.label :feed, class: 'control-label'
+          .col-lg-2
+            = f.select :feed, Vulnerability.feeds.keys.collect { |feed| [Vulnerability.human_enum_name(:feed, feed), feed] }, { selected: @record.feed || :custom }, class: 'form-control', disabled: @record.blocked
+
+      .form-group.recomended
+        .field
+          .col-lg-2.text-right
+            = f.label :custom_codenames, class: 'control-label'
+          .col-lg-8
+            = f.text_field(:custom_codenames_str,
+              value: decorated.show_custom_codenames,
+              class: 'form-control',
+              placeholder: t('activerecord.attributes.vulnerability.ph_custom_codenames'))
+
+      - if current_user.admin_editor?
+        .form-group.recomended
+          .field
+              .col-lg-2.text-right
+                = f.label :state, class: 'control-label'
+              .col-lg-2
+                = f.select :state, Vulnerability.states.keys.collect { |state| [Vulnerability.human_enum_name(:state, state), state] }, { selected: @record.state || :published, include_blank: true }, class: 'form-control'
+
+      .form-group.recomended
+        .field
+          .col-lg-2.text-right
+            = f.label :actuality
+          .col-lg-2
+            = f.select :actuality, Vulnerability.actualities.keys.collect { |actuality| [Vulnerability.human_enum_name(:actuality, actuality), actuality] }, { selected: @record.actuality}, class: 'form-control', disabled: true
+          .col-lg-2.text-right
+            = f.label :custom_actuality
+          .col-lg-2
+            = f.select :custom_actuality, Vulnerability.custom_actualities.keys.collect { |actuality| [Vulnerability.human_enum_name(:custom_actuality, actuality), actuality] }, { selected: @record.custom_actuality}, class: 'form-control'
+
+      .form-group.recomended
+        .field
+          .col-lg-2.text-right
+            = f.label :relevance
+          .col-lg-2
+            = f.select :relevance, Vulnerability.relevances.keys.collect { |relevance| [Vulnerability.human_enum_name(:custom_relevance, relevance), relevance ] }, { selected: @record.relevance}, class: 'form-control', disabled: true
+          .col-lg-2.text-right
+            = f.label :custom_relevance
+          .col-lg-2
+            = f.select :custom_relevance, Vulnerability.custom_relevances.keys.collect { |relevance| [Vulnerability.human_enum_name(:custom_relevance, relevance), relevance ] }, { selected: @record.custom_relevance}, class: 'form-control'
+
+      .form-group.recomended
+        .field
+          .col-lg-2.text-right
+            = f.label :exploit_maturity
+          .col-lg-2
+            = f.select :exploit_maturity, Vulnerability.exploit_maturities.keys.collect { |maturity| [Vulnerability.human_enum_name(:exploit_maturity, maturity), maturity] }, { selected: @record.exploit_maturity}, class: 'form-control', disabled: true
+          .col-lg-2.text-right
+            = f.label :custom_exploit_maturity
+          .col-lg-2
+            = f.select :custom_exploit_maturity, Vulnerability.custom_exploit_maturities.keys.collect { |maturity| [Vulnerability.human_enum_name(:exploit_maturity, maturity), maturity] }, { selected: @record.custom_exploit_maturity}, class: 'form-control'
+
+      .form-group
+        .field
+          .col-lg-2.text-right
+            a.link data-toggle='collapse' href='.toggle_products_vendors'
+              strong.control-label
+                = t('activerecord.attributes.vulnerability.feed_info')
+                =< fa_icon('hand-pointer-o')
+
+      .form-group.recomended.collapse.toggle_products_vendors
+        .field
+          .col-lg-2.text-right
+            = f.label :vendors, class: 'control-label'
+          .col-lg-8
+            = f.text_field :vendors_str, value: decorated.show_vendors,  class: 'form-control', disabled: true, placeholder: t('activerecord.attributes.vulnerability.ph_vendors')
+
+      .form-group.recomended.collapse.toggle_products_vendors
+        .field
+          .col-lg-2.text-right
+            = f.label :products, class: 'control-label'
+          .col-lg-8
+            = f.text_field :products_str, value: decorated.show_products, class: 'form-control', disabled: true, placeholder: t('activerecord.attributes.vulnerability.ph_products')
+
+      .form-group.recomended
+        .field
+          .col-lg-2.text-right
+            = f.label :custom_vendors, class: 'control-label'
+          .col-lg-8
+            = f.text_field :custom_vendors_str, value: decorated.show_custom_vendors,  class: 'form-control', placeholder: t('activerecord.attributes.vulnerability.ph_vendors')
+
+      .form-group.recomended
+        .field
+          .col-lg-2.text-right
+            = f.label :custom_products, class: 'control-label'
+          .col-lg-8
+            = f.text_field :custom_products_str, value: decorated.show_custom_products, class: 'form-control', placeholder: t('activerecord.attributes.vulnerability.ph_products')
+
+      .form-group
+        .field
+          .col-lg-2.text-right
+            a.link data-toggle='collapse' href='.toggle_cvss'
+              strong.control-label
+                = t('activerecord.attributes.vulnerability.feed_info')
+                =< fa_icon('hand-pointer-o')
+
+      .form-group.recomended.collapse.toggle_cvss
+        .field
+          .col-lg-2.text-right
+            = f.label :cvss3, class: 'control-label'
+          .col-lg-1
+            = f.text_field :cvss3, class: 'form-control', placeholder: t('activerecord.attributes.vulnerability.ph_cvss'), disabled: true
+          .col-lg-2.text-right
+            = f.label :cvss3_exploitability, class: 'control-label'
+          .col-lg-1
+            = f.text_field :cvss3_exploitability, class: 'form-control', placeholder: t('activerecord.attributes.vulnerability.ph_cvss'), disabled: true
+          .col-lg-2.text-right
+            = f.label :cvss3_impact, class: 'control-label'
+          .col-lg-1
+            = f.text_field :cvss3_impact, class: 'form-control', placeholder: t('activerecord.attributes.vulnerability.ph_cvss'), disabled: true
+
+      .form-group.recomended.collapse.toggle_cvss
+        .field
+          .col-lg-2.text-right
+            = f.label :cvss3_vector, class: 'control-label'
+          .col-lg-8
+            = f.text_field :cvss3_vector, class: 'form-control', placeholder: t('activerecord.attributes.vulnerability.ph_cvss3_vector'), disabled: true
+
+      .form-group.recomended.collapse.toggle_cvss
+        .field
+          .col-lg-2.text-right
+            = f.label :cvss2, class: 'control-label'
+          .col-lg-1
+            = f.text_field :cvss2, class: 'form-control', placeholder: t('activerecord.attributes.vulnerability.ph_cvss'), disabled: true
+          .col-lg-2.text-right
+            = f.label :cvss2_exploitability, class: 'control-label'
+          .col-lg-1
+            = f.text_field :cvss2_exploitability, class: 'form-control', placeholder: t('activerecord.attributes.vulnerability.ph_cvss'), disabled: true
+          .col-lg-2.text-right
+            = f.label :cvss2_impact, class: 'control-label'
+          .col-lg-1
+            = f.text_field :cvss2_impact, class: 'form-control', placeholder: t('activerecord.attributes.vulnerability.ph_cvss'), disabled: true
+
+      .form-group.recomended.collapse.toggle_cvss
+        .field
+          .col-lg-2.text-right
+            = f.label :cvss2_vector, class: 'control-label'
+          .col-lg-8
+            = f.text_field :cvss2_vector, class: 'form-control', placeholder: t('activerecord.attributes.vulnerability.ph_cvss2_vector'), disabled: true
+
+      .form-group.recomended
+        .field
+          .col-lg-2.text-right
+            = f.label :custom_cvss3, class: 'control-label'
+          .col-lg-1
+            = f.text_field :custom_cvss3, class: 'form-control', placeholder: t('activerecord.attributes.vulnerability.ph_cvss')
+          .col-lg-2.text-right
+            = f.label :custom_cvss3_exploitability, class: 'control-label'
+          .col-lg-1
+            = f.text_field :custom_cvss3_exploitability, class: 'form-control', placeholder: t('activerecord.attributes.vulnerability.ph_cvss')
+          .col-lg-2.text-right
+            = f.label :custom_cvss3_impact, class: 'control-label'
+          .col-lg-1
+            = f.text_field :custom_cvss3_impact, class: 'form-control', placeholder: t('activerecord.attributes.vulnerability.ph_cvss')
+
+      .form-group.recomended
+        .field
+          .col-lg-2.text-right
+            = f.label :custom_cvss3_vector, class: 'control-label'
+          .col-lg-8
+            = f.text_field :custom_cvss3_vector, class: 'form-control', placeholder: t('activerecord.attributes.vulnerability.ph_cvss3_vector')
+
+      .form-group
+        .field
+          .col-lg-2.text-right
+            a.link data-toggle='collapse' href='#toggle_descritpion'
+              strong.control-label
+                = t('activerecord.attributes.vulnerability.description')
+                =< fa_icon('hand-pointer-o')
+          .col-lg-8 id='toggle_descritpion' class='collapse'
+            = decorated.show_description_string
+
+      .form-group.recomended
+        .field
+          .col-lg-2.text-right
+            = f.label :custom_description, class: 'control-label'
+          .col-lg-8
+            = f.text_area(:custom_description,
+              rows: 6,
+              class: 'form-control',
+              id: 'translated')
+            = link_to(t('labels.translate'),
+              translate_path(text: @record.description&.first),
+              method: :post,
+              remote: true,
+              class: 'btn btn-link')
+
+      .form-group
+        .field
+          .col-lg-2.text-right
+            a.link data-toggle='collapse' href='#toggle_references'
+              strong.control-label
+                = t('activerecord.attributes.vulnerability.references')
+                =< fa_icon('hand-pointer-o')
+          .col-lg-8 id='toggle_references' class='collapse'
+            = auto_link decorated.show_references_string
+
+      .form-group.recomended
+        .field
+          .col-lg-2.text-right
+            = f.label :custom_references, class: 'control-label'
+          .col-lg-8
+            = f.text_area :custom_references, rows: 2, class: 'form-control', placeholder: t('activerecord.attributes.vulnerability.ph_references')
+
+      .form-group.recomended
+        .field
+          .col-lg-2.text-right
+            = f.label :custom_recomendation, class: 'control-label'
+          .col-lg-8
+            = f.text_area :custom_recomendation, rows: 4, class: 'form-control'
+
+      = custom_fields_input @record
+
+      .form-group.recomended
+        .field
+          .col-lg-2.text-right
+            a.link data-toggle='collapse' href='#toggle_extra'
+              strong
+                = t('labels.extra_info')
+              =< fa_icon('hand-pointer-o')
+          .col-lg-8
+            table.table.table-hover.table-bordered.table-striped
+              caption
+              tbody id='toggle_extra' class='collapse'
+                tr
+                  td.col-md-2.text-right
+                    strong.text-info
+                      = @record.class.human_attribute_name(:created_at)
+                  td
+                    = show_date_time(@record.created_at)
+                tr
+                  td.col-md-2.text-right
+                    strong.text-info
+                      = @record.class.human_attribute_name(:updated_at)
+                  td
+                    = show_date_time(@record.updated_at)
+                tr
+                  td.col-md-2.text-right
+                    strong.text-info
+                      = @record.class.human_attribute_name(:cvss3_vector)
+                  td
+                    = @record.cvss3_vector
+                tr
+                  td.col-md-2.text-right
+                    strong.text-info
+                      = @record.class.human_attribute_name(:cvss3_exploitability)
+                  td
+                    = @record.cvss3_exploitability
+                tr
+                  td.col-md-2.text-right
+                    strong.text-info
+                      = @record.class.human_attribute_name(:cvss3_impact)
+                  td
+                    = @record.cvss3_impact
+                tr
+                  td.col-md-2.text-right
+                    strong.text-info
+                      = @record.class.human_attribute_name(:cvss2)
+                  td
+                    = @record.cvss2
+                tr
+                  td.col-md-2.text-right
+                    strong.text-info
+                      = @record.class.human_attribute_name(:cvss2_vector)
+                  td
+                    = @record.cvss2_vector
+                tr
+                  td.col-md-2.text-right
+                    strong.text-info
+                      = @record.class.human_attribute_name(:cvss2_exploitability)
+                  td
+                    = @record.cvss2_exploitability
+                tr
+                  td.col-md-2.text-right
+                    strong.text-info
+                      = @record.class.human_attribute_name(:cvss2_impact)
+                  td
+                    = @record.cvss2_impact
+                tr
+                  td.col-md-2.text-right
+                    strong.text-info
+                      = @record.class.human_attribute_name(:versions)
+                  td
+                    = render 'versions_by_products', decorated: VulnerabilityDecorator.new(@record)
+                tr
+                  td.col-md-2.text-right
+                    strong.text-info
+                      = @record.class.human_attribute_name(:cpe)
+                  td
+                    = simple_format(JSON.pretty_generate(decorated.show_cpe_array))
+
+      .actions.form-group
+        .col-lg-offset-2.col-lg-8
+          => f.submit t('helpers.submit.save'), class: 'btn btn-success'
+          = render 'form_back_button'

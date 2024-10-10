@@ -1,0 +1,57 @@
+= caption t('navigations.import_vulners')
+.well
+  = form_tag create_import_vulnerabilities_path, multipart: true do
+    .row
+      .form-group.required
+        .field
+          .col-lg-2.text-right
+            .control-label
+              strong
+                = t('labels.import_vulners_file_format')
+          .col-lg-2
+            = select_tag(:file_format, options_for_select(ImportVulnersCommand.file_formats.map { |f| [t("labels.import_vulners_file_formats.#{f}"), f] }), { class: 'form-control' })
+
+          .col-lg-2.text-right
+            .control-label
+              strong
+                = t('labels.import_vulners_file')
+
+          .col-lg-2
+            label.form-control.btn.btn-info.btn-file
+              = t('labels.attachment.select_file')
+              = file_field_tag :file, class: 'form-control'
+
+    br
+    .row
+      .actions.form-group
+        .col-lg-offset-2.col-lg-8
+          => submit_tag t('helpers.submit.save'), class: 'btn btn-success'
+          = render 'form_back_button'
+  br
+  .row
+    .col-lg-offset-2.col-lg-8
+      - if @messages.fetch(:errors, []).present?
+        a.link data-toggle='collapse' href='#toggle_errors'
+          strong.text-warning
+            = "#{t('labels.errors')}:"
+        .collapse#toggle_errors
+          ol
+            - @messages.fetch(:errors, [])&.each do |record_with_errors|
+              li
+                .text-danger
+                  = record_with_errors.codename
+                - record_with_errors.errors.each do |k, v|
+                  .text-warning
+                    =< k
+                  =< v
+      br
+      - if @messages.fetch(:created_vulns, nil).present?
+        a.link data-toggle='collapse' href='#toggle_created'
+          strong.text-warning
+            = "#{t('labels.imported')} (#{@messages.fetch(:created_vulns, {}).size}/#{@messages.fetch(:rows_processed, 0)}):"
+        .collapse#toggle_created
+          ol
+            - @messages.fetch(:created_vulns, {}).each do |name, id|
+              li
+                = link_to name, vulnerability_path(id)
+      br
