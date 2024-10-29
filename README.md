@@ -1,5 +1,6 @@
 # ZEPSEC
-"And I looked, and behold a pale horse: and his name that sat on him was Death, and Hell followed with him. And power was given unto them over the fourth part of the earth, to kill with sword, and with hunger, and with death, and with the beasts of the earth." - Revelation 6:2-8
+"And I looked, and behold a pale horse: and his name that sat on him was Death, and Hell followed with him. And power was given unto them over the fourth part of the earth, to kill with sword, and with hunger, and with death, and with the beasts of the earth." 
+- Revelation 6:2-8
 
 
 ZEPSEC is an enterprise-grade SaaS solution designed to streamline information security management processes. Our platform serves as a centralized hub for vulnerability management, threat intelligence, and security operations. We build it ontop of a Russian hacker tool purchased on the DarkWeb and improved it with AI-assisted log analysis and reporting, and of course an English language conversion of the interface. And threat monitoring integrations with X-Force and Shodan. And removal of all the hidden backdoors we found in the original. Proactively monitor and address your networks' weakest links before the bad guys find them first.
