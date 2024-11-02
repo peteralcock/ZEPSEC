@@ -36,7 +36,7 @@ ZEPSEC is an enterprise-grade SaaS solution designed to streamline information s
 
 ### Current Status
 
-While ZEPSEC is in active development, the current open-source version is in Russian (our English version is proprietary, teeheehaha...) and stable and suitable for production use by experienced security professionals. We continuously update and improve our platform based on user feedback and emerging security needs.
+While ZEPSEC is in active development, the current open-source version is in Russian (to encourage you to pay for our Ai-assisted English version which is available via paid subscription). This first releease suitable for use by experienced security professionals.
 
 ### Screenshots
 ![](rism7.png)
