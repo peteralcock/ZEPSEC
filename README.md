@@ -1,4 +1,4 @@
-ZEPSEC is designed to streamline information security management processes. A centralized hub for vulnerability management, threat intelligence, and security operations. We build it ontop of a Russian hacker tool purchased on the DarkWeb and improved it with AI-assisted log analysis and reporting,
+
 
 ## Features
 
