@@ -1,6 +1,6 @@
 class TopCveScoreByMonth < BaseChart
   set_chart_name :top_cve_score_by_month
-  set_human_name 'Базовые метрики CVSS v3 (топ 20 за месяц)'
+  set_human_name 'CVSS v3 base metrics (top 20 per month)'
   set_kind :pie_chart
 
   def chart

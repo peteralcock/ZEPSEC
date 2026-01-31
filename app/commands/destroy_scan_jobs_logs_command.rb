@@ -3,7 +3,7 @@
 class DestroyScanJobsLogsCommand < BaseCommand
 
   set_command_name :destroy_scan_jobs_logs
-  set_human_name 'Удалить все записи журнала'
+  set_human_name 'Delete all log records'
   set_command_model 'ScanJobLog'
   set_required_params %i[]
 

@@ -1,0 +1,11 @@
+en:
+  activerecord:
+    models:
+      delivery_list:
+        one: 'Delivery list'
+        other: 'Delivery lists'
+    attributes:
+      delivery_list:
+        name: 'Name'
+        organization_id: 'Organization (owner)'
+        description: 'Description'

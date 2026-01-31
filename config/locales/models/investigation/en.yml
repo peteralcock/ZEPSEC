@@ -1,0 +1,28 @@
+en:
+  activerecord:
+    models:
+      investigation:
+        one: 'Investigation/Bulletin'
+        other: 'Investigations/Bulletins'
+    attributes:
+      investigation:
+        enrich: 'Enrich'
+        name: 'Name'
+        feed_codename: 'Source code'
+        custom_codename: 'Custom code'
+        organization_id: 'Organization (owner)'
+        user_id: 'User (creator)'
+        feed_id: 'Information source'
+        created_at: 'Created at'
+        updated_at: 'Updated at'
+        description: 'Description'
+        investigation_kind_id: 'Investigation type (threat)'
+        indicators_list: 'Indicators'
+        threats:
+          other: 'Other'
+          network: 'Network activity'
+          email: 'Email'
+          process: 'Program activity'
+          account: 'User activity'
+        created_by_id: 'Created by'
+        updated_by_id: 'Updated by'

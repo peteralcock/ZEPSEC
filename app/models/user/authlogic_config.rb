@@ -36,6 +36,7 @@ module User::AuthlogicConfig
 
   private
 
+  # NOTE: А-Я and а-я are Cyrillic character ranges (Russian uppercase/lowercase)
   def password_complexity
     return if password.blank? ||
       self.password =~ /(?=.*?[A-ZА-Я])(?=.*?[a-zа-я])(?=.*?[0-9])(?=.*?#{PASSWD_REGEXP})/

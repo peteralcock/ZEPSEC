@@ -1,6 +1,6 @@
 class IncidentsBySeveryties < BaseChart
   set_chart_name :incidents_by_severyties
-  set_human_name 'Инциденты по важности'
+  set_human_name 'Incidents by severity'
   set_kind :pie_chart
 
   def chart
@@ -9,9 +9,9 @@ class IncidentsBySeveryties < BaseChart
       COUNT(*) count_all,
       CASE incidents.severity
       WHEN 0
-      THEN 'Обычный'
+      THEN 'Normal'
       WHEN 1
-      THEN 'Важный'
+      THEN 'Important'
       END
       AS incidents_severity
       FROM

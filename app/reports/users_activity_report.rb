@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class UsersActivityReport < BaseReport
-  set_lang :ru
+  set_lang :en
   set_report_name :organizations
-  set_human_name 'Активность пользователей'
+  set_human_name 'Users activity'
   set_report_model 'UserAction'
   set_required_params %i[]
   set_formats %i[csv]
@@ -17,7 +17,7 @@ class UsersActivityReport < BaseReport
     r = blank_document
     header = [
       '№',
-      'Пользователь',
+      'User',
       'email',
     ]
     r << header

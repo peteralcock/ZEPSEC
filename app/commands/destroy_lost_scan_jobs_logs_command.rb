@@ -3,7 +3,7 @@
 class DestroyLostScanJobsLogsCommand < BaseCommand
 
   set_command_name :destroy_lost_scan_jobs_logs
-  set_human_name 'Удалить все записи журнала с отсутствующими фоновыми процессами'
+  set_human_name 'Delete all log records with missing background processes'
   set_command_model 'ScanJobLog'
   set_required_params %i[]
 

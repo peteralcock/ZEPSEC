@@ -3,7 +3,7 @@
 class RunAllScans < BaseCommand
 
   set_command_name :run_all_scans
-  set_human_name 'Запустить все сканирования'
+  set_human_name 'Run all scans'
   set_command_model 'ScanJob'
   set_required_params %i[]
 

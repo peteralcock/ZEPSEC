@@ -1,0 +1,6 @@
+en:
+  activerecord:
+    models:
+      subscription:
+        one: 'User subscription to resource'
+        other: 'User subscriptions to resources'

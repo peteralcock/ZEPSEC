@@ -1,0 +1,6 @@
+en:
+  activerecord:
+    models:
+      notifications_log:
+        one: 'Notification log'
+        other: 'Notification logs'

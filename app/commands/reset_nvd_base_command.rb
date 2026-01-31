@@ -4,7 +4,7 @@ class ResetNvdBaseCommand < BaseCommand
   NVD_START_YEAR = 2002
 
   set_command_name :reset_nvd_base
-  set_human_name 'Пересоздать данные NVD'
+  set_human_name 'Recreate NVD data'
   set_command_model 'Vulnerability'
   set_required_params %i[]
 

@@ -1,0 +1,18 @@
+en:
+  activerecord:
+    models:
+      custom_field:
+        one: 'Custom field'
+        other: 'Custom fields'
+    attributes:
+      custom_field:
+        name: 'Name'
+        field_model: 'Resource'
+        description: 'Description'
+        data_type: 'Data type'
+        data_types:
+          string: 'String'
+          text: 'Text'
+          number: 'Number'
+          datetime: 'Date and time'
+          boolean: 'Boolean'

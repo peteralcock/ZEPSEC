@@ -1,0 +1,21 @@
+en:
+  activerecord:
+    models:
+      custom_report:
+        one: 'SQL report'
+        other: 'SQL reports'
+    attributes:
+      custom_report:
+        name: 'Name'
+        created_at: 'Created at'
+        organization_id: 'Organization'
+        folder_id: 'Section'
+        statement: 'SQL code'
+        result_format: 'Result format'
+        result_formats:
+          csv: 'CSV'
+          json: 'JSON'
+        add_csv_header: 'Add column headers to CSV file'
+        utf_encoding: 'Save report in UTF-8 instead of Windows-1251'
+        encoding: 'Encoding'
+        description: 'Description'

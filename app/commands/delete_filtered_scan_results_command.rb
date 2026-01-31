@@ -3,7 +3,7 @@
 class DeleteFilteredScanResultsCommand < BaseCommand
 
   set_command_name :delete_filtered_scan_results
-  set_human_name 'Удалить отфильтрованные записи'
+  set_human_name 'Delete filtered records'
   set_command_model 'ScanResult'
   set_required_params %i[q]
 

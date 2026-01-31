@@ -1,0 +1,24 @@
+en:
+  activerecord:
+    models:
+      user:
+        one: 'User/Contact'
+        other: 'Users/Contacts'
+    attributes:
+      user:
+        name: 'Name'
+        email: 'Email'
+        phone: 'Phone'
+        mobile_phone: 'Mobile phone'
+        organization: 'Organization'
+        job: 'Position'
+        department_id: 'Department'
+        department_name: 'Department'
+        description: 'Description'
+        organization_id: 'Organization'
+        active: 'Login allowed'
+        api_user: 'API access allowed'
+        api_token: 'API access token'
+        password: 'Password (min. 8 characters meeting complexity requirements)'
+        password_confirmation: 'Password confirmation'
+        rank: 'Position rank'

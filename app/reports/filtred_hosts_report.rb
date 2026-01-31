@@ -3,9 +3,9 @@
 class FiltredHostsReport < BaseReport
   include DateTimeHelper
 
-  set_lang :ru
+  set_lang :en
   set_report_name :filtred_hosts
-  set_human_name 'Результаты поиска по полям'
+  set_human_name 'Field search results'
   set_report_model 'Host'
   set_required_params %i[q]
   set_formats %i[csv]
@@ -16,11 +16,11 @@ class FiltredHostsReport < BaseReport
     header = [
       '№',
       'IP',
-      'Имя',
-      'Организация владелец',
-      'Описание',
-      'Время создания',
-      'Время обновления',
+      'Name',
+      'Owner organization',
+      'Description',
+      'Created at',
+      'Updated at',
     ]
     custom_fields = CustomField.where(field_model: 'Host')
     custom_fields_names = custom_fields.each_with_object([]) { |v, o| o << v.name }

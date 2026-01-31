@@ -1,0 +1,14 @@
+en:
+  activerecord:
+    models:
+      article:
+        one: 'Article'
+        other: 'Articles'
+    attributes:
+      article:
+        name: 'Name'
+        created_at: 'Created at'
+        organization_id: 'Organization'
+        user_id: 'Author'
+        content: 'Content'
+        published: 'Published'

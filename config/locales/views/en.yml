@@ -1,0 +1,13 @@
+en:
+  views:
+    shared:
+      placeholders:
+        cont_list_filter: 'all (value1, valueN)'
+        over_list_filter: 'any (value1, valueN)'
+        eq_filter: 'equals'
+        eq_list_filter: 'equals values from list (one value per line)'
+        cont_filter: 'contains'
+        not_cont_filter: 'does not contain'
+    vulnerabilities:
+      placeholders:
+        description_cont: 'string (contains)'

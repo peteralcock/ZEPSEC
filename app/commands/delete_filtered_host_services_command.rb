@@ -3,7 +3,7 @@
 class DeleteFilteredHostServicesCommand < BaseCommand
 
   set_command_name :delete_filtered_host_services
-  set_human_name 'Удалить отфильтрованные записи'
+  set_human_name 'Delete filtered records'
   set_command_model 'HostService'
   set_required_params %i[q]
 

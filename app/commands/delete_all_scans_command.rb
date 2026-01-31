@@ -3,7 +3,7 @@
 class DeleteAllScansCommand < BaseCommand
 
   set_command_name :delete_all_scans
-  set_human_name 'Удалить все результаты сканирования'
+  set_human_name 'Delete all scan results'
   set_command_model 'ScanResult'
   set_required_params %i[]
 

@@ -1,6 +1,6 @@
 class EmailIndicators < BaseChart
   set_chart_name :email_indicators
-  set_human_name 'Топ индикаторов - email'
+  set_human_name 'Top indicators - email'
   set_kind :pie_chart
 
   def chart

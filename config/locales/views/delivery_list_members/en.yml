@@ -1,0 +1,5 @@
+en:
+  views:
+    delivery_list_members:
+      allowed_organizations: 'Available organizations for assignment'
+      assigned_organizations: 'Assigned organizations'

@@ -1,0 +1,198 @@
+en:
+  activerecord:
+    models:
+      role:
+        one: 'Role'
+        other: 'Roles'
+      role_member:
+        one: 'User role'
+        other: 'User roles'
+      right:
+        one: 'Permission'
+        other: 'Permissions'
+      department:
+        one: 'Department'
+        other: 'Departments'
+      agreement:
+        one: 'Agreement'
+        other: 'Agreements'
+      attachment:
+        one: 'Attachment'
+        other: 'Attachments'
+      attachment_link:
+        one: 'File binding'
+        other: 'File bindings'
+      agreement_kind:
+        one: 'Agreement type'
+        other: 'Agreement types'
+      organization_kind:
+        one: 'Organization type'
+        other: 'Organization types'
+      tag_kind:
+        one: 'Tag type'
+        other: 'Tag types'
+      tag:
+        one: 'Tag'
+        other: 'Tags'
+      tag_member:
+        one: 'Tag binding'
+        other: 'Tag bindings'
+      incident:
+        one: 'Incident'
+        other: 'Incidents'
+      link_kind:
+        one: 'Link type'
+        other: 'Link types'
+      link:
+        one: 'Link'
+        other: 'Links'
+      scan_option:
+        one: 'Scan options set'
+        other: 'Scan options sets'
+      schedule:
+        one: 'Work schedule'
+        other: 'Work schedules'
+      scan_jobs_host:
+        one: 'Scanned host/network'
+        other: 'Scanned hosts/networks'
+      feed:
+        one: 'Research information source'
+        other: 'Research information sources'
+      investigation_kind:
+        one: 'Investigation type'
+        other: 'Investigation types'
+      indicator_context:
+        one: 'Indicator context'
+        other: 'Indicator contexts'
+      vulnerability:
+        one: 'Vulnerability'
+        other: 'Vulnerabilities'
+    attributes:
+      role:
+        name: 'Name'
+        description: 'Description'
+      role_member:
+        user_id: 'User'
+        role_id: 'Role'
+      right:
+        organization_id: 'Organization'
+        role_id: 'Role'
+        level: 'Level'
+        subject_type: 'Model'
+        subject_id: 'Record'
+      department:
+        name: 'Name'
+        organization_id: 'Organization'
+        parent_id: 'Part of'
+        rank: 'Display order'
+        description: 'Description'
+      agreement:
+        beginning: 'Date'
+        prop: 'Number'
+        duration: 'Duration (months)'
+        prolongation: 'Auto-renewal'
+        organization_id: 'Organization'
+        agreement_kind_id: 'Agreement type'
+        contractor_id: 'Contractor'
+        description: 'Description'
+      attachment:
+        name: 'Name'
+        document: 'File'
+      agreement_kind:
+        name: 'Name'
+        description: 'Description'
+      organization_kind:
+        name: 'Name'
+        description: 'Description'
+      tag_kind:
+        name: 'Name'
+        code_name: 'Tag type code'
+        record_type: 'Attachable resource type'
+        color: 'Color'
+        description: 'Description'
+      tag:
+        name: 'Name'
+        tag_kind_id: 'Tag type'
+        rank: 'Display order'
+        color: 'Color'
+        description: 'Description'
+      tag_member:
+        record_type: 'Record type'
+        record_id: 'Record ID'
+        tag_id: 'Tag'
+      incident:
+        id: 'Number'
+        name: 'Title'
+        organization_id: 'Organization (owner)'
+        user_id: 'User (owner)'
+        discovered_at: 'Discovered'
+        discovered_time: 'Discovery time confirmed'
+        created_at: 'Registered'
+        started_at: 'Occurred'
+        started_time: 'Occurrence time confirmed'
+        finished_at: 'Finished'
+        finished_time: 'Finish time confirmed'
+        closed_at: 'Closed'
+        event_description: 'Event description'
+        investigation_description: 'Investigation result'
+        action_description: 'Actions taken'
+        severity: 'Severity'
+        damage: 'Damage'
+        state: 'State'
+      link_kind:
+        name: 'Name'
+        code_name: 'Code'
+        rank: 'Rank'
+        first_record_type: 'Linking resource'
+        second_record_type: 'Linked resource'
+        equal: 'Bidirectional'
+        color: 'Color'
+        description: 'Description'
+      link:
+        first_record_type: 'Resource type'
+        first_record_id: 'Resource number'
+        second_record_type: 'Attached resource type'
+        second_record_id: 'Attached resource number'
+        link_kind_id: 'Link type'
+        description: 'Description'
+      scan_option:
+        name: 'Name'
+        description: 'Description'
+        options: 'Options'
+        syn_scan: 'SYN scan (-sS)'
+        skip_discovery: 'Skip host discovery (-Pn)'
+        udp_scan: 'Scan UDP (-sU)'
+        os_fingerprint: 'Detect OS (-O)'
+        service_scan: 'Detect service (-sV)'
+        top_ports: 'Scan popular ports (--top-ports)'
+        ports: 'Port list (-p)'
+        aggressive_timing: 'Aggressive timing (-T4)'
+        insane_timing: 'Insane timing (-T5)'
+        disable_dns: 'Disable DNS resolution (-n)'
+        queue_number: 'Queue priority'
+      schedule:
+        job: 'Job'
+        job_organization: 'Job organization'
+        minutes: 'Minutes'
+        hours: 'Hours'
+        week_days: 'Days of week'
+        months: 'Months'
+        month_days: 'Days of month'
+        crontab_line: 'Schedule in crontab format'
+      feed:
+        name: 'Name'
+        description: 'Description'
+      investigation_kind:
+        name: 'Name'
+        description: 'Description'
+      indicator_context:
+        name: 'Name'
+        codename: 'Code name'
+        indicators_formats: 'Indicator formats'
+        description: 'Description'
+    errors:
+      messages:
+          organization_is_built_in: 'Cannot delete organization because it is built-in'
+          user_is_built_in: 'Cannot delete user because it is built-in'
+          role_is_built_in: 'Cannot delete role because it is built-in'
+          wrong_format_or_dublication: 'Wrong format/duplicate record'

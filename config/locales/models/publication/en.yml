@@ -1,0 +1,6 @@
+en:
+  activerecord:
+    models:
+      publication:
+        one: 'Resource publication'
+        other: 'Resource publications'

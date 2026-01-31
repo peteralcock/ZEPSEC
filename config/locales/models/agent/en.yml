@@ -1,0 +1,21 @@
+en:
+  activerecord:
+    models:
+      agent:
+        one: 'Agent'
+        other: 'Agents'
+    attributes:
+      agent:
+        name: 'Name'
+        address: 'IP address'
+        hostname: 'Hostname'
+        protocol: 'Protocol'
+        protocols:
+          http: 'http'
+          https: 'https'
+        port: 'Port number'
+        secret: 'Secret key'
+        name: 'Name'
+        created_at: 'Created at'
+        organization_id: 'Organization'
+        description: 'Description'

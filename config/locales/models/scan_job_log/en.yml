@@ -1,0 +1,14 @@
+en:
+  activerecord:
+    models:
+      scan_job_log:
+        one: 'Scan job history'
+        other: 'Scan job histories'
+    attributes:
+      scan_job_log:
+        scan_job_id: 'Scan job'
+        agent_id: 'Agent'
+        jid: 'Background process ID'
+        start: 'Start'
+        finish: 'End'
+        queue: 'Background process queue'

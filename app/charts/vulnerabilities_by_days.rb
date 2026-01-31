@@ -1,6 +1,6 @@
 class VulnerabilitiesByDays < BaseChart
   set_chart_name :vulnerabilities_by_days
-  set_human_name 'Сохранено уязвимостей в день (за месяц)'
+  set_human_name 'Vulnerabilities saved per day (per month)'
   set_kind :line_chart
 
   def chart
@@ -9,6 +9,6 @@ class VulnerabilitiesByDays < BaseChart
       'vulnerabilities.created_at',
       range: 1.month.ago.midnight..Time.now
     ).count
-    [{name: 'Количество', data: result}]
+    [{name: 'Count', data: result}]
   end
 end

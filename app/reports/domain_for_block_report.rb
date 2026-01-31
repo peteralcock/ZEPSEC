@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class DomainForBlockReport < BaseReport
-  set_lang :ru
+  set_lang :en
   set_report_name :domain_for_block
-  set_human_name "Домены (IoC) для блокировки (последние сутки)"
+  set_human_name "Domains (IoC) for blocking (last 24 hours)"
   set_report_model 'Indicator'
   set_required_params []
   set_formats %i[txt]

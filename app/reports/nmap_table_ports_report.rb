@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class NmapTablePortsReport < TablePortsReport
-  set_lang :ru
+  set_lang :en
   set_report_name :nmap_table_ports
-  set_human_name 'Nmap открытые порты'
+  set_human_name 'Nmap open ports'
   set_report_model 'ScanResult'
   set_required_params %i[]
   set_formats %i[docx csv]

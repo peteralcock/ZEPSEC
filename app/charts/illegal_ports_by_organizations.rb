@@ -1,6 +1,6 @@
 class IllegalPortsByOrganizations < BaseChart
   set_chart_name :illegal_ports_by_organizations
-  set_human_name 'Нелегальные и неизвестные порты по организациям (топ 10 организаций)'
+  set_human_name 'Illegal and unknown ports by organizations (top 10 organizations)'
   set_kind :column_chart
 
   def chart
@@ -12,6 +12,6 @@ class IllegalPortsByOrganizations < BaseChart
       .where(state: :open)
       .where('host_services.legality = 0 OR host_services.legality = 1')
       .top('organizations.name', 10)
-    [{name: 'Количество', data: result}]
+    [{name: 'Count', data: result}]
   end
 end

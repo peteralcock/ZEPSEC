@@ -1,0 +1,15 @@
+en:
+  activerecord:
+    models:
+      search_filter:
+        one: 'Search filter'
+        other: 'Search filters'
+    attributes:
+      search_filter:
+        name: 'Filter name'
+        shared: 'Shared in organization'
+        organization_id: 'Organization'
+        user_id: 'User'
+        filtred_model: 'For'
+        rank: 'Display order'
+        description: 'Filter description'

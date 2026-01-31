@@ -2,7 +2,7 @@
 
 class LinkScanJobHostsCommand < BaseCommand
   set_command_name :link_scan_jobs_hosts_command
-  set_human_name 'Перенести цели сканирования из поля Хосты в связи'
+  set_human_name 'Move scan targets from Hosts field to associations'
   set_command_model 'ScanJob'
   set_required_params %i[]
 

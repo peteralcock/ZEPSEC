@@ -1,0 +1,6 @@
+en:
+  views:
+    delivery_subjects:
+      labels:
+        allowed_delivery_lists: 'Available delivery lists for assignment'
+        assigned_delivery_lists: 'Assigned delivery lists'

@@ -1,6 +1,6 @@
 class TopUsersFromUserActionsByMonth < BaseChart
   set_chart_name :top_users_from_user_actions_by_month
-  set_human_name 'Пользователи (топ 20 за месяц)'
+  set_human_name 'Users (top 20 per month)'
   set_kind :pie_chart
 
   def chart

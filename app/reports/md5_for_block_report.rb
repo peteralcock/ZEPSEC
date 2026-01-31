@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class Md5ForBlockReport < BaseReport
-  set_lang :ru
+  set_lang :en
   set_report_name :md5_for_block
-  set_human_name "MD5 (IoC) для блокировки (последние сутки)"
+  set_human_name "MD5 (IoC) for blocking (last 24 hours)"
   set_report_model 'Indicator'
   set_required_params []
   set_formats %i[txt]

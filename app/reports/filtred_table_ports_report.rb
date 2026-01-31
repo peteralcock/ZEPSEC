@@ -3,9 +3,9 @@
 class FiltredTablePortsReport < BaseReport
   include DateTimeHelper
 
-  set_lang :ru
+  set_lang :en
   set_report_name :filtred_table_ports
-  set_human_name 'Результаты поиска по полям'
+  set_human_name 'Field search results'
   set_report_model 'ScanResult'
   set_required_params %i[q]
   set_formats %i[docx csv]
@@ -19,30 +19,30 @@ class FiltredTablePortsReport < BaseReport
     end
 
     if @organization.present?
-      r.p  "Справка по портам хостов организации #{@organization.name}", style: 'Header'
+      r.p  "Host ports report for organization #{@organization.name}", style: 'Header'
     else
-      r.p  "Справка по портам организаций", style: 'Header'
+      r.p  "Organization ports report", style: 'Header'
     end
-    r.p  "(по состоянию на #{Date.current.strftime('%d.%m.%Y')})", style: 'Prim'
+    r.p  "(as of #{Date.current.strftime('%d.%m.%Y')})", style: 'Prim'
 
 
     header = [[
-      'Дата проверки',
-      'Дата сканирования',
-      'Организация',
-      'Сканер',
+      'Check date',
+      'Scan date',
+      'Organization',
+      'Scanner',
       'IP',
-      'Порт',
-      'Протокол',
-      'Состояние',
-      'Уязвимости',
-      'Легальность сервиса',
-      'Статус обработки сервиса',
-      'Дата изменения статуса обработки',
-      'Реквизиты состояния обработки',
-      'Сервис',
-      'ПО сервиса',
-      'Дополнительно'
+      'Port',
+      'Protocol',
+      'State',
+      'Vulnerabilities',
+      'Service legality',
+      'Service processing status',
+      'Processing status change date',
+      'Processing status details',
+      'Service',
+      'Service software',
+      'Additional info'
     ]]
 
     table = @records.each_with_object(header) do |record, memo|
@@ -74,11 +74,11 @@ class FiltredTablePortsReport < BaseReport
      end
 
     header = [[
-      'Сервис',
-      'Уязвимость',
+      'Service',
+      'Vulnerability',
       'CVSS',
-      'Описание уязвимости',
-      'Ссылки на описание уязвимости',
+      'Vulnerability description',
+      'Vulnerability description references',
     ]]
 
     table = @records.each_with_object(header) do |record, memo|
@@ -109,7 +109,7 @@ class FiltredTablePortsReport < BaseReport
     end
 
     r.p
-    r.p  "Уязвимости", style: 'Header'
+    r.p  "Vulnerabilities", style: 'Header'
     r.p
 
     r.table(table, border_size: 4) do
@@ -122,22 +122,22 @@ class FiltredTablePortsReport < BaseReport
     r = blank_document
 
     header = [
-      'Дата проверки',
-      'Дата сканирования',
-      'Организация',
-      'Сканер',
+      'Check date',
+      'Scan date',
+      'Organization',
+      'Scanner',
       'IP',
-      'Порт',
-      'Протокол',
-      'Состояние',
-      'Уязвимости',
-      'Легальность сервиса',
-      'Статус обработки сервиса',
-      'Дата изменения статуса обработки',
-      'Реквизиты состояния обработки',
-      'Сервис',
-      'ПО сервиса',
-      'Дополнительно'
+      'Port',
+      'Protocol',
+      'State',
+      'Vulnerabilities',
+      'Service legality',
+      'Service processing status',
+      'Processing status change date',
+      'Processing status details',
+      'Service',
+      'Service software',
+      'Additional info'
     ]
     r << header
 
@@ -165,11 +165,11 @@ class FiltredTablePortsReport < BaseReport
     end
 
     header = [
-      'Сервис',
-      'Уязвимость',
+      'Service',
+      'Vulnerability',
       'CVSS',
-      'Описание уязвимости',
-      'Ссылки на описание уязвимости',
+      'Vulnerability description',
+      'Vulnerability description references',
     ]
     r << header
 
