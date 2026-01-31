@@ -49,10 +49,9 @@ RUN chown -R 10001:10001 /app
 USER 10001:10001
 ENV HOME="/app"
 WORKDIR /app
-RUN gem install bundler && \
+RUN gem install bundler -v ${BUNDLER_VERSION} && \
     bundle config build.nokogiri --use-system-libraries && \
     rm -rf /usr/lib/lib/ruby/gems/*/cache/*
-RUN gem install bundler -v 1.17.3
 COPY Gemfile Gemfile.lock ./
 RUN bundle install --jobs 8 --retry 3 --without development test
 #RUN bundle install --binstubs --jobs 8 --retry 3
@@ -62,6 +61,6 @@ RUN yarn install --check-files
 # Remove packages that not needed for rails runtime
 # RUN apk del build-dependencies
 COPY --chown=10001:10001 . ./
-RUN RAILS_ENV=production rails assets:precompile
+RUN SECRET_KEY_BASE=dummy RAILS_ENV=production bundle exec rails assets:precompile
 EXPOSE 3000
 CMD ["rails", "server", "-b", "0.0.0.0"]
