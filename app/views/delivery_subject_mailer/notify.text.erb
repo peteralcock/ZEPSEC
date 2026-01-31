@@ -1,11 +1,11 @@
-Уведомление об изменениях в RISM
+Notification about changes in RISM
 ------------------------------------------------
-В модуле "<%= @publicable.class.model_name.human %>" опубликована новая запись - <%= @publicable.name %>.
-Ссылка: <%= polymorphic_url(@publicable) %>
-Дата создания записи: <%= show_date_time(@publicable.created_at) %>
-Дата последнего изменения записи: <%= show_date_time(@publicable.updated_at) %>
+A new record has been published in the "<%= @publicable.class.model_name.human %>" module - <%= @publicable.name %>.
+Link: <%= polymorphic_url(@publicable) %>
+Record creation date: <%= show_date_time(@publicable.created_at) %>
+Record last modified date: <%= show_date_time(@publicable.updated_at) %>
 
 ------------------------------------------------
-Сообщение сформировано автоматически программой RISM.
-Оповещение выполнено так как опубликовавший запись оператор включил ваш адрес в группу рассылки.
-Пожалуйста, не отвечайте на это письмо.
+This message was generated automatically by RISM.
+You received this notification because the operator who published the record included your address in the mailing list.
+Please do not reply to this email.

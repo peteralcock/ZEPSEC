@@ -1,10 +1,10 @@
-Уведомление об изменениях в RISM
+Notification about changes in RISM
 ------------------------------------------------
-В модуле "<%= @publicable.class.model_name.human %>", на который у вас оформлена подписка, опубликована новая запись - <%= @publicable.name %>.
-Ссылка: <%= polymorphic_url(@publicable) %>
-Дата создания записи: <%= show_date_time(@publicable.created_at) %>
-Дата последнего изменения записи: <%= show_date_time(@publicable.updated_at) %>
+A new record has been published in the "<%= @publicable.class.model_name.human %>" module, to which you are subscribed - <%= @publicable.name %>.
+Link: <%= polymorphic_url(@publicable) %>
+Record creation date: <%= show_date_time(@publicable.created_at) %>
+Record last modified date: <%= show_date_time(@publicable.updated_at) %>
 
 ------------------------------------------------
-Сообщение сформировано автоматически программой RISM.
-Пожалуйста, не отвечайте на это письмо.
+This message was generated automatically by RISM.
+Please do not reply to this email.

@@ -1,6 +1,6 @@
 class TopCweByMonth < BaseChart
   set_chart_name :top_cwe_by_month
-  set_human_name 'CWE уязвимостей (топ 20 за месяц)'
+  set_human_name 'Vulnerability CWE (top 20 per month)'
   set_kind :pie_chart
 
   def chart

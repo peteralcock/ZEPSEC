@@ -1,6 +1,6 @@
 class IndicatorsByFormat < BaseChart
   set_chart_name :indicators_by_format
-  set_human_name 'Индикаторы по формату'
+  set_human_name 'Indicators by format'
   set_kind :bar_chart
 
   def chart

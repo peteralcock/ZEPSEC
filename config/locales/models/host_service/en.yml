@@ -1,0 +1,36 @@
+en:
+  activerecord:
+    models:
+      host_service:
+        one: 'Network service'
+        other: 'Network services'
+    attributes:
+      host_service:
+        name: 'Name'
+        organization_id: 'Organization'
+        host_id: 'Host'
+        ip_str: 'Host'
+        vulnerable: 'Vulnerable'
+        vuln_description: 'Vulnerability description'
+        legality: 'Legality'
+        legalities:
+          illegal: 'Illegal'
+          unknown: 'Unknown'
+          legal: 'Legal'
+          no_sense: 'Not important'
+        port: 'Port'
+        protocol: 'Protocol'
+        description: 'Description'
+        state_str: 'Current state'
+        states:
+          0: 'Closed'
+          1: 'Closed|Filtered'
+          2: 'Filtered'
+          3: 'Unfiltered'
+          4: 'Open Filtered'
+          5: 'Open'
+        unknown_state: 'Unknown'
+        host_service_status_id: 'Processing status'
+        host_service_status_changed_at: 'Processing status change date'
+        host_service_status_prop: 'Processing status details'
+        host_service_status_prop_short: 'Proc. details'

@@ -3,9 +3,9 @@
 class FiltredTableVulnersReport < BaseReport
   include DateTimeHelper
 
-  set_lang :ru
+  set_lang :en
   set_report_name :filtred_table_vulners
-  set_human_name 'Результаты поиска по полям'
+  set_human_name 'Field search results'
   set_report_model 'Vulnerability'
   set_required_params %i[q]
   set_formats %i[csv]
@@ -16,34 +16,34 @@ class FiltredTableVulnersReport < BaseReport
     header = [
       '№',
       'CVE ID',
-      'Прочие ID',
-      'Обработано',
-      'Обработал',
-      'Дата обработки',
-      'Категория',
+      'Other IDs',
+      'Processed',
+      'Processed by',
+      'Processing date',
+      'Category',
       'CWE ID',
-      'Источник последнего внесения сведений',
-      'Дата обновления источником',
-      'Дата публикации источником',
-      'Дата обновления в базе',
-      'Дата сохранения в базе',
-      'Производители',
-      'Продукты',
-      'Версии',
-      'Критичность',
-      'Базовое значение CVSS',
-      'Вектор CVSS',
-      'Вектор атаки',
-      'Наличие эксплоита',
-      'Актуальность',
-      'Релевантность',
-      'Описание источника',
-      'Описание',
-      'Ссылка на NVD',
-      'Ссылки источника',
-      'Ссылки',
-      'Рекомендации',
-      'Бюллеттени'
+      'Last data entry source',
+      'Source update date',
+      'Source publication date',
+      'Date updated in database',
+      'Date saved to database',
+      'Vendors',
+      'Products',
+      'Versions',
+      'Criticality',
+      'CVSS base score',
+      'CVSS vector',
+      'Attack vector',
+      'Exploit availability',
+      'Relevance',
+      'Applicability',
+      'Source description',
+      'Description',
+      'NVD link',
+      'Source references',
+      'References',
+      'Recommendations',
+      'Bulletins'
     ]
     custom_fields = CustomField.where(field_model: 'Vulnerability')
     custom_fields_names = custom_fields.each_with_object([]) { |v, o| o << v.name }

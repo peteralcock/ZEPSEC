@@ -1,0 +1,11 @@
+en:
+  flashes:
+    create: Record %{model} successfully created.
+    update: Record %{model} successfully updated.
+    password_update: Password successfully changed.
+    password_not_update: Password was not changed.
+    destroy: Record %{model} successfully deleted.
+    revert: Record %{model} successfully reverted to previous version.
+    command: Command %{command} successfully executed.
+    command_failed: Command %{command} failed.
+    now_scan: Scan %{net_scan_job_id} started, results will appear shortly

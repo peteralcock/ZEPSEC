@@ -1,0 +1,17 @@
+en:
+  activerecord:
+    models:
+      host:
+        one: 'Host/network'
+        other: 'Hosts/networks'
+    attributes:
+      host:
+        name: 'Name'
+        ip: 'Address'
+        to_hosts: 'Save as individual hosts of specified subnet'
+        organization_id: 'Organization'
+        description: 'Description'
+        created_at: 'Created'
+        updated_at: 'Updated'
+        created_by_id: 'Created by'
+        updated_by_id: 'Updated by'

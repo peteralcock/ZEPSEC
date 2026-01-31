@@ -1,0 +1,42 @@
+en:
+  activerecord:
+    models:
+      scan_result:
+        one: 'Scan result'
+        other: 'Scan results'
+    attributes:
+      scan_result:
+        organization_id: 'Organization (owner)'
+        scan_job_id: 'Job'
+        scan_job_scan_engine: 'Engine'
+        scan_engine: 'Engine'
+        source_ip: 'Scanner address'
+        state: 'State'
+        states:
+          closed: 'Closed'
+          closed_filtered: 'Closed|Filtered'
+          filtered: 'Filtered'
+          unfiltered: 'Unfiltered'
+          open_filtered: 'Open Filtered'
+          open: 'Open'
+        legality: 'Legality (was)'
+        host_service_legality: 'Service legality'
+        host_service_status: 'Service processing status'
+        host_service_description: 'Service description'
+        legalities:
+          illegal: 'Illegal'
+          unknown: 'Unknown'
+          legal: 'Legal'
+          no_sense: 'Not important'
+        ip: 'IP'
+        port: 'Port'
+        protocol: 'Protocol'
+        job_start: 'Job start'
+        start: 'Scan start'
+        finished: 'Scan end'
+        service: 'Service'
+        product: 'Software'
+        product_version: 'Version'
+        product_extrainfo: 'Additional'
+        vulners: 'Vulnerabilities'
+        jid: 'Background job ID'

@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class OrganizationsReport < BaseReport
-  set_lang :ru
+  set_lang :en
   set_report_name :organizations
-  set_human_name 'Организации'
+  set_human_name 'Organizations'
   set_report_model 'Organization'
   set_required_params %i[]
   set_formats %i[docx]
@@ -11,11 +11,11 @@ class OrganizationsReport < BaseReport
   def docx(blank_document)
     r = blank_document
     organizations = OrganizationPolicy::Scope.new(current_user, Organization).resolve
-    r.p  "Справка по организациям", style: 'Header'
+    r.p  "Organizations report", style: 'Header'
     organizations.each_with_index do |organization, index|
       r.p
       r.p "#{index + 1}. #{organization.name}", style: 'Header'
-      r.p "Описание: #{organization.description}", style: 'Text'
+      r.p "Description: #{organization.description}", style: 'Text'
     end
   end
 

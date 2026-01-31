@@ -1,0 +1,20 @@
+en:
+  activerecord:
+    models:
+      user_action:
+        one: 'User action record'
+        other: 'User action log'
+    attributes:
+      user_action:
+        created_at: 'Date and time'
+        user_id: 'User'
+        organization_id: 'Organization'
+        controller: 'Module (controller)'
+        action: 'Action (action)'
+        event: 'Event code'
+        record_model: 'Record model'
+        record_id: 'Record ID'
+        ip: 'IP address'
+        browser: 'Browser'
+        params: 'Parameters (params)'
+        comment: 'Comment'

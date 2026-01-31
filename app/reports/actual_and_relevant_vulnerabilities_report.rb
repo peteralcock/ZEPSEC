@@ -3,9 +3,9 @@
 class ActualAndRelevantVulnerabilitiesReport< BaseReport
   include DateTimeHelper
 
-  set_lang :ru
+  set_lang :en
   set_report_name :actual_and_relevant
-  set_human_name 'Актуальнае и релевантные уязвимости'
+  set_human_name 'Actual and relevant vulnerabilities'
   set_report_model 'Vulnerability'
   set_required_params %i[]
   set_formats %i[csv]
@@ -16,30 +16,30 @@ class ActualAndRelevantVulnerabilitiesReport< BaseReport
     header = [
       '№',
       'CVE ID',
-      'Прочие ID',
-      'Обработано',
-      'Обработал',
-      'Дата обработки',
-      'Категория',
+      'Other IDs',
+      'Processed',
+      'Processed by',
+      'Processing date',
+      'Category',
       'CWE ID',
-      'Источник последнего внесения сведений',
-      'Дата публикации NVD',
-      'Дата обновления NVD',
-      'Дата сохранения в базе',
-      'Дата обновления в базе',
-      'Производители',
-      'Продукты',
-      'Версии',
-      'Критичность',
-      'Базовое значение CVSS',
-      'Вектор CVSS',
-      'Вектор атаки',
-      'Описание источника',
-      'Описание',
-      'Ссылки источника',
-      'Ссылки',
-      'Рекомендации',
-      'Бюллеттени'
+      'Last data entry source',
+      'NVD publication date',
+      'NVD update date',
+      'Date saved to database',
+      'Date updated in database',
+      'Vendors',
+      'Products',
+      'Versions',
+      'Criticality',
+      'CVSS base score',
+      'CVSS vector',
+      'Attack vector',
+      'Source description',
+      'Description',
+      'Source references',
+      'References',
+      'Recommendations',
+      'Bulletins'
     ]
     custom_fields = CustomField.where(field_model: 'Vulnerability')
     custom_fields_names = custom_fields.each_with_object([]) { |v, o| o << v.name }

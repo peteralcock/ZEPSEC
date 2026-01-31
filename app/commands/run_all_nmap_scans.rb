@@ -3,7 +3,7 @@
 class RunAllNmapScans < BaseCommand
 
   set_command_name :run_all_nmap_scans
-  set_human_name 'Запустить все Nmap сканирования'
+  set_human_name 'Run all Nmap scans'
   set_command_model 'ScanJob'
   set_required_params %i[]
 

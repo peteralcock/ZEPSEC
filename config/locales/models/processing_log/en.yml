@@ -1,0 +1,13 @@
+en:
+  activerecord:
+    models:
+      processing_log:
+        one: 'Processing log'
+        other: 'Processing logs'
+    attributes:
+      article:
+        deliverable_id: 'Message'
+        processed_by_id: 'Processed by'
+        organization_id: 'Organization'
+        created_at: 'Created at'
+        updated_at: 'Updated at'

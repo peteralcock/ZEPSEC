@@ -3,9 +3,9 @@
 # Import hosts and creat organizations that hosts belongs
 # Use it it to import data to empty RISM database
 # To use run:
-# rake rism:import_hosts['hosts.csv','ООО МММ','дочерние','стоп']
+# rake rism:import_hosts['hosts.csv','OOO MMM','subsidiaries','stop']
 # Where:
-# ООО МММ - parent organization name for all created organizations
+# OOO MMM - parent organization name for all created organizations
 # stop - word that will be deleted from host organizations names
 # to create organizations codenames (when organizatoins will be created)
 
@@ -21,6 +21,7 @@ namespace :rism do
 
     current_user = User.where(id: 1).first
 
+    # NOTE: ООО (LLC), АО (JSC), ПАО (PJSC) are Russian legal entity abbreviations
     codename = args[:parent].gsub(
         /[^[:alpha:]]|ООО|АО|ПАО|#{args[:stop_word]}|\s/,
         ''
@@ -51,6 +52,7 @@ namespace :rism do
           org.organization_kind_id = organization_kind.id
           org.parent_id = parent_organization.id
           org.current_user = current_user
+          # NOTE: ООО (LLC), АО (JSC), ПАО (PJSC) are Russian legal entity abbreviations
           codename = attributes[:organization_name].gsub(
               /[^[:alpha:]]|ООО|АО|ПАО|#{args[:stop_word]}|\s/,
               ''

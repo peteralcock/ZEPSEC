@@ -3,9 +3,9 @@
 class ServicesReport < BaseReport
   include DateTimeHelper
 
-  set_lang :ru
+  set_lang :en
   set_report_name :services
-  set_human_name 'Сервисы'
+  set_human_name 'Services'
   set_report_model 'HostService'
   set_required_params %i[]
   set_formats %i[docx csv]
@@ -18,24 +18,24 @@ class ServicesReport < BaseReport
       orientation :landscape  # sets the printer orientation. accepts :portrait and :landscape.
     end
     if @organization.present?
-      r.p  "Справка по сетевым сервисам организации #{@organization.name}", style: 'Header'
+      r.p  "Network services report for organization #{@organization.name}", style: 'Header'
     else
-      r.p  "Справка по сетевым сервисам организаций", style: 'Header'
+      r.p  "Organizations network services report", style: 'Header'
     end
-    r.p  "(по состоянию на #{Date.current.strftime('%d.%m.%Y')})", style: 'Prim'
+    r.p  "(as of #{Date.current.strftime('%d.%m.%Y')})", style: 'Prim'
 
     header = [[
-      'Организация',
-      'IP-адрес',
-      'Порт',
-      'Протокол',
-      'Состояние',
-      'Легальность',
-      'Уязвимость',
-      'Описание уязвимости',
-      'Описание',
-      'Дата изменения статуса обработки',
-      'Реквизиты состояния обработки'
+      'Organization',
+      'IP address',
+      'Port',
+      'Protocol',
+      'State',
+      'Legality',
+      'Vulnerability',
+      'Vulnerability description',
+      'Description',
+      'Processing status change date',
+      'Processing status details'
     ]]
 
     table = @records.each_with_object(header) do |record, memo|
@@ -64,17 +64,17 @@ class ServicesReport < BaseReport
     r = blank_document
 
     header = [
-      'Организация',
-      'IP-адрес',
-      'Порт',
-      'Протокол',
-      'Состояние',
-      'Легальность',
-      'Уязвимость',
-      'Описание уязвимости',
-      'Описание',
-      'Дата изменения статуса обработки',
-      'Реквизиты состояния обработки'
+      'Organization',
+      'IP address',
+      'Port',
+      'Protocol',
+      'State',
+      'Legality',
+      'Vulnerability',
+      'Vulnerability description',
+      'Description',
+      'Processing status change date',
+      'Processing status details'
     ]
     r << header
 

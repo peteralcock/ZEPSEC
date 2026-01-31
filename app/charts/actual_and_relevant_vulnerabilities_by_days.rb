@@ -1,6 +1,6 @@
 class ActualAndRelevantVulnerabilitiesByDays < BaseChart
   set_chart_name :actual_and_relevant_vulnerabilities_by_days
-  set_human_name 'Актуальные и релевантные уязвимости по дням (за месяц)'
+  set_human_name 'Actual and relevant vulnerabilities by days (per month)'
   set_kind :line_chart
 
   def chart
@@ -13,6 +13,6 @@ class ActualAndRelevantVulnerabilitiesByDays < BaseChart
       'vulnerabilities.created_at',
       range: 1.month.ago.midnight..Time.now
     ).count
-    [{name: 'Количество', data: result}]
+    [{name: 'Count', data: result}]
   end
 end

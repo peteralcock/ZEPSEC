@@ -2,7 +2,7 @@
 
 class SyncNvdBaseCommand < BaseCommand
   set_command_name :sync_nvd_base
-  set_human_name 'Синхронизировать данные NVD'
+  set_human_name 'Synchronize NVD data'
   set_command_model 'Vulnerability'
   set_required_params %i[]
 

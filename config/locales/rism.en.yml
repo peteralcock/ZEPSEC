@@ -1,0 +1,286 @@
+en:
+  placeholders:
+    auto: 'start typing name/title or ID (autocomplete enabled)'
+    search: 'enter field value'
+    last_days: 'for N days'
+    last_weeks: 'for N weeks'
+    last_months: 'for N months'
+    last_years: 'for N years'
+    knowledge_base_search: 'Search knowledge base'
+    user:
+      name: 'Last Name First Name Middle Name'
+      department: 'you can specify department name (if the field above is empty)'
+      rank: 'format - 001, 020, 100 etc. (contacts with lower rank are displayed first)'
+    link_kinds:
+      first_record_type: 'by default - empty field (matches all types)'
+    link:
+      description: 'Description/note for the link'
+    incidents:
+      search: 'enter field value (name/title, date, ID (as #number)) or code (state, severity, damage, tag)'
+    schedules:
+      crontab_line: '[minutes 0-59] [hours 0-23] [days of month 1-31] [months 1-12] [days of week 0-6] or always - * '
+    scan_jobs:
+      hosts: 'host or hosts separated by commas (192.168.1.1,10.0.0.1-22,172.16.5.0/24)'
+    hosts:
+      ip: 'host or network (192.168.1.1 or 172.16.5.0/24)'
+      ip_auto: 'start typing host or network, e.g., 192.168.1.1 or 172.16.5.0/24 (autocomplete enabled)'
+    vulnerability:
+      codename_auto: 'start typing vulnerability name, e.g., CVE-210-1 (autocomplete enabled)'
+
+  labels:
+    app_name: 'RISM'
+    app_full_name: 'Information Security Management System'
+    add: 'Add'
+    default_organization_name: 'Public organizations'
+    press_to_add: 'click to add'
+    expert_mode: 'Expert mode (has priority over schedule)'
+    main_info: 'Main information'
+    extra_info: 'Additional information'
+    state_info: 'State and change information'
+    changed_fields_info: 'Changed fields'
+    comment: 'Comment'
+    calculated_cvss_info: 'Aggregated and calculated CVSS metrics and vectors'
+    cvss_info: 'CVSS metrics and vectors'
+    products_info: 'Product information'
+    description_info: 'Descriptions and references'
+    custom_fields_info: 'Custom fields'
+    translate: 'Translate'
+    notify_subject: 'Notification from RISM'
+    advance_search: 'Advanced search'
+    yes_label: 'Yes'
+    no_label: 'No'
+    all_label: 'All'
+    user_has_no_roles: 'User has no assigned roles - contact your administrator.'
+    imported: 'Imported'
+    not_processed: 'Not imported (errors and duplicates)'
+    updated: 'Updated'
+    errors: 'Errors'
+    toggle_selection: 'Select/deselect'
+    published: 'Published'
+    publish: 'Publish'
+    subscribe: 'Subscribe'
+    unsubscribe: 'Unsubscribe'
+    host:
+      import_hosts_organization: 'Organization to import hosts into'
+    user:
+      active: 'Yes'
+      not_active: 'No'
+      phone: 'tel.'
+    indicator:
+      danger: 'Yes'
+      not_danger: 'No'
+      indicators_list: 'Show/hide indicators list'
+    attachment:
+      more_files: 'Files'
+      attachable_file: 'Selected file:'
+      select_file: 'Select file'
+      file_name: 'Display file name (optional)'
+      link_file: 'Attach file'
+    agreement:
+      prolongation: 'Yes'
+      no_prolongation: 'No'
+      full_name: 'Agreement %{prop} dated %{beginning} between %{organization} and %{contractor}'
+    incident:
+      full_name: 'Number / Name'
+      dates_and_times: 'Dates and times'
+      organization_link: '%{name} belongs to'
+      owners: 'Owners (click to view)'
+      more_owners: 'Owners (click to edit)'
+    tags:
+      more_tags: 'Tags (click to add)'
+      allowed_tags: 'Available tags for assignment'
+    link_kind:
+      all_resource_types: 'All'
+    links:
+      more_links: 'Links (click to add)'
+      allowed_links: 'Available link types'
+      linked: 'links to'
+      link: 'Link'
+    version:
+      versions: 'Versions'
+      current_version: 'Current version'
+      showed_version: 'Displayed version'
+      version_number: 'Version number'
+      more_versions: 'other versions'
+      created_at: 'Created at'
+      model: 'Record model'
+      id: 'Version ID'
+      record_id: 'Record ID'
+      event: 'Action'
+      author: 'Author'
+      created: 'creation'
+      updated: 'update'
+    link_kinds:
+      equal: 'Bidirectional'
+      not_equal: 'Unidirectional'
+    record_templates:
+      original_record: 'Template from'
+      select_template: 'Select template:'
+      more_content: 'Attributes (click to view)'
+    reports: 'Reports'
+    info: 'Additional information...'
+    kbase: 'Knowledge base/news'
+    search: 'Search results'
+    host_service:
+      vulnerable: 'Vulnerable'
+    current_legality: 'Legality'
+    schedules:
+      current_schedule: 'Current schedule'
+    scan_results:
+      vulns_presence: 'Vulnerabilities present'
+    scan_jobs:
+      working_count: 'Started'
+      planned_count: 'In queue'
+      working_planned_count: 'Started / in queue'
+    scan_job_logs:
+      status: 'Status'
+      started: 'Started'
+      finished: 'Finished'
+      worker: 'Background process'
+      worker_work: 'Running'
+      worker_lost: 'Missing'
+      worker_was: 'Completed'
+      distance: 'Duration min.'
+    indicators:
+      template_description: "In the 'Indicators' field you can list indicators in the following format (each indicator on a separate line, some indicators are entered with a prefix ending in a colon, e.g. - other: INDICATOR, also an indicator can be clarified with context (if prefix present - follows it), e.g. - (src, dst): INDICATOR or with prefix - uri(legal): INDICATOR:"
+      other: 'other: arbitrary text (1-500 characters)'
+      registry: 'registry: Windows registry (1-500 characters)'
+      network_service: 'Network service (8.8.8.8:53 or 10.1.1.1:443:tcp)'
+      network_port: 'Network port (21, 22:tcp or 53:udp)'
+      network: 'IP address (127.0.0.1)'
+      email_adress: 'address (example@example.com)'
+      email_theme: 'email_theme: subject'
+      email_content: 'email_content: message'
+      uri: 'uri: http://resource, https://resource or ftp://resource)'
+      domain: 'domain: domain (www.example.com)'
+      hash: 'md5, sha256 or sha512 hash'
+      filename: 'filename: file name (report.doc)'
+      filesize: 'filesize: file size (1-500 characters, e.g. 500Kb)'
+      process: 'process: process name (1-500 characters, e.g. - psexec.exe)'
+      account: 'account: user account (1-500 characters, e.g. - Administrator)'
+    vulnerability:
+      unread: 'Pending'
+      read: 'Processed'
+      none: 'None'
+      low: 'Low'
+      medium: 'Medium'
+      high: 'High'
+      critical: 'Critical'
+      toggle: 'Toggle'
+    import_vulners_file_formats:
+      bdu_csv: 'BDU FSTEC Russia (csv from excel)'
+    import_vulners_file_format: 'File format'
+    file: 'File'
+    delivery_subject:
+      allowed_delivery_lists: 'Available delivery lists for assignment'
+      assigned_delivery_lists: 'Assigned delivery lists'
+    delivery_recipients:
+      allowed_organizations: 'Available organizations for assignment'
+      allowed_users: 'Available users for assignment'
+      assigned: 'Assigned recipients'
+    ra_agent_api: 'API for RA agent'
+  navigations:
+    config: 'Settings'
+    contacts: 'Contacts'
+    knowledge_base: 'Knowledge base'
+    references: 'References'
+    main_info: 'Main information'
+    roles: 'Roles'
+    rights: 'Access rights'
+    departments: 'Departments/workers'
+    worker: 'Worker'
+    workers: 'Workers'
+    catalog: 'Other'
+    reports:
+      download: 'Download report (bulletin, report)'
+      download_filtred: 'Download search results by fields'
+    dashboards: 'Dashboard'
+    charts: 'Charts'
+    advanced_search: 'Search by fields'
+    actual_and_relevant_vulnerabilities: 'Actual and relevant vulnerabilities'
+    investigations_incidents: 'Incidents/investigations'
+    clone: 'Clone'
+    scans: 'Scans'
+    open_ports: 'Open ports'
+    new_ports: 'New ports (not registered as service)'
+    commands:
+      run: 'Run command'
+    scheduled_jobs: 'Background jobs in queues'
+    queue_jobs: 'Jobs in queue'
+    queue_job_start: 'Queue entry time'
+    import_vulners: 'Import vulnerabilities'
+    import_hosts: 'Import hosts'
+  roles:
+    admin: 'Administrator'
+    manager: 'Manager'
+    editor: 'Editor'
+    reader: 'Reader'
+  rights:
+    manager: 'Permission assignment'
+    editor: 'Editing'
+    reader: 'Reading'
+  incidents:
+    damages:
+      not_present: 'D0 - none'
+      unknown: 'D1 - unknown'
+      present: 'D2 - present'
+    severities:
+      low: 'S0 - normal'
+      hi: 'S1 - high'
+    states:
+      registered: 'S0 - registered'
+      processed: 'S1 - processing'
+      closed: 'S2 - closed'
+  organization_kinds:
+    organization: 'Organization'
+    department: 'Department'
+    folder: 'Folder'
+  views:
+    action:
+      new: "New record -"
+      confirm: "Are you sure?"
+      show: "Go to"
+      info: "Show"
+      enrich_all: "Enrich (all available services)"
+      add: 'Add'
+      run_custom_reports_result: 'Run execution'
+      edit: "Edit"
+      delete: "Delete"
+      delete_all: "Delete all"
+      back: "Back"
+      back_to: "Go to (%{model})"
+      back_to_list: 'Go to main list "%{model}"'
+      find: 'Search'
+      certify: "Yes"
+      make_template: "Create template"
+      scan: "Scan"
+      new_host: 'New host'
+      new_host_service: 'New network service'
+      new_scan_job: 'New scan'
+      legalize: 'Legalize'
+      delegalize: 'Delegalize'
+      change_password: 'Change password'
+      notify: 'Notify'
+      notifications_logs: 'Sent notifications list'
+      reset_selections: 'Reset selection'
+      clone_roles: 'Clone roles to selected users'
+      show_selected: 'Show selected users'
+      clone_roles_tooltip: 'Replace roles for selected users with current user roles'
+  messages:
+    yes: 'yes'
+    no: 'no'
+    not_allowed: Access denied.
+    organization:
+      organization_not_allowed: 'no permission to select organization.'
+    user:
+      password_complexity_error: 'does not meet complexity requirements: at least one character from each of the following categories is required - lowercase letter, uppercase letter, digit, special character'
+  user_session:
+    email_required: must be an email address
+  user_sessions:
+    sign_in: Sign in
+    sign_out: Sign out
+    password: password
+    sign_in_error: Invalid email or password
+    welcome: Welcome back!
+    goodbay: Goodbye!
+    sign_in_user: Current user

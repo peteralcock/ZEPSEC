@@ -15,9 +15,9 @@ class NmapVsShodanReport < BaseReport
 
   include DateTimeHelper
 
-  set_lang :ru
+  set_lang :en
   set_report_name :namp_vs_shodan
-  set_human_name 'Открытые порты Nmap vs Shodan'
+  set_human_name 'Open ports Nmap vs Shodan'
   set_report_model 'ScanResult'
   set_required_params %i[]
   set_formats %i[docx csv]
@@ -30,22 +30,22 @@ class NmapVsShodanReport < BaseReport
       orientation :landscape  # sets the printer orientation. accepts :portrait and :landscape.
     end
     if @organization.present?
-      r.p  "Справка по открытым портам хостов организации #{@organization.name}", style: 'Header'
+      r.p  "Open ports report for organization #{@organization.name}", style: 'Header'
     else
-      r.p  "Справка по открытым портам организаций", style: 'Header'
+      r.p  "Organizations open ports report", style: 'Header'
     end
-    r.p  "(по состоянию на #{Date.current.strftime('%d.%m.%Y')})", style: 'Prim'
+    r.p  "(as of #{Date.current.strftime('%d.%m.%Y')})", style: 'Prim'
 
     header = [[
-      'Организация',
+      'Organization',
       'IP',
-      'Порт',
-      'Протокол',
-      'Уязвимости',
-      'Сервис',
-      'ПО сервиса',
-      'Дополнительно',
-      'Сканер'
+      'Port',
+      'Protocol',
+      'Vulnerabilities',
+      'Service',
+      'Service software',
+      'Additional info',
+      'Scanner'
     ]]
 
     records = @records.each_with_object([]) do |record, memo|
@@ -78,15 +78,15 @@ class NmapVsShodanReport < BaseReport
     r = blank_document
 
     header = [
-      'Организация',
+      'Organization',
       'IP',
-      'Порт',
-      'Протокол',
-      'Уязвимости',
-      'Сервис',
-      'ПО сервиса',
-      'Дополнительно',
-      'Сканер'
+      'Port',
+      'Protocol',
+      'Vulnerabilities',
+      'Service',
+      'Service software',
+      'Additional info',
+      'Scanner'
     ]
     r << header
 

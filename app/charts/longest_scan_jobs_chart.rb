@@ -1,6 +1,6 @@
 class LongestScanJobsChart < BaseChart
   set_chart_name :longest_scan_jobs
-  set_human_name 'Длительность работ по сканированию за месяц (топ 5)'
+  set_human_name 'Scan job duration per month (top 5)'
   set_kind :column_chart
 
   def chart
@@ -11,6 +11,6 @@ class LongestScanJobsChart < BaseChart
                        .each_with_object({}) do |l, memo|
       memo["#{l.scan_job.name} #{l.jid}"] = ((l.finish - l.start).round)/60
                        end
-    [{name: 'Минут', data: result}]
+    [{name: 'Minutes', data: result}]
   end
 end

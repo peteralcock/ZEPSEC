@@ -1,6 +1,6 @@
 class FailedLoginsByDays < BaseChart
   set_chart_name :failed_logins_by_days
-  set_human_name 'Неуспешных попыток входа по дням (за месяц)'
+  set_human_name 'Failed login attempts by days (per month)'
   set_kind :line_chart
 
   def chart
@@ -9,6 +9,6 @@ class FailedLoginsByDays < BaseChart
         :created_at,
         range: 1.month.ago.midnight..Time.now
       ).count
-    [{name: 'Количество', data: result}]
+    [{name: 'Count', data: result}]
   end
 end

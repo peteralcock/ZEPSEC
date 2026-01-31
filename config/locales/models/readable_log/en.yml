@@ -1,0 +1,16 @@
+en:
+  activerecord:
+    models:
+      readable_log:
+        one: 'View log'
+        other: 'View logs'
+    attributes:
+      readable_log:
+        v_status: 'Status'
+        v_reset: 'All'
+        v_old: 'Viewed'
+        v_new: 'New'
+        v_updated: 'Changed'
+        v_new_and_updated: 'New and changed'
+        v_old_and_updated: 'Viewed and changed'
+        v_all: 'All'

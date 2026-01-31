@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class ForBlockReport < BaseReport
-  set_lang :ru
+  set_lang :en
   set_report_name :for_block
-  set_human_name "Индикаторы (IoC) для блокировки (последние сутки)"
+  set_human_name "Indicators (IoC) for blocking (last 24 hours)"
   set_report_model 'Indicator'
   set_required_params []
   set_formats %i[txt]

@@ -1,0 +1,13 @@
+en:
+  activerecord:
+    models:
+      articles_folder:
+        one: 'Articles section'
+        other: 'Articles sections'
+    attributes:
+      articles_folder:
+        name: 'Name'
+        organization_id: 'Organization'
+        parent_id: 'Part of'
+        rank: 'Display order'
+        description: 'Description'

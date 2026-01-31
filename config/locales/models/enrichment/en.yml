@@ -1,0 +1,18 @@
+en:
+  activerecord:
+    models:
+      enrichment:
+        one: 'Enrichment'
+        other: 'Enrichments'
+    attributes:
+      enrichment:
+        content: 'Content'
+        broker: 'Service'
+        enrichmentable_type: 'Enriched record type'
+        enrichmentable_id: 'Enriched record ID'
+        created_at: 'Created at'
+        brokers:
+          virus_total: 'VirusTotal'
+          x_force: 'IBM X-Force Exchange'
+          shodan: 'Shodan'
+        v_danger: 'Threats'

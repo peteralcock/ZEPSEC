@@ -5,9 +5,9 @@
 #
 #  OrganizationIncidentsReport.register
 class OrganizationIncidentsReport < BaseReport
-  set_lang :ru
+  set_lang :en
   set_report_name :organization_incidents
-  set_human_name 'Инциденты организации'
+  set_human_name 'Organization incidents'
   set_report_model 'Incident'
   set_required_params %i[organization_id]
   set_formats %i[docx]
@@ -15,10 +15,10 @@ class OrganizationIncidentsReport < BaseReport
   def docx(blank_document)
     r = blank_document
 
-    # docx.h1 'Справка по инцидентам организации'
+    # docx.h1 'Organization incidents report'
     # docx.hr
-    r.p  "Справка по инцидентам связанным с организацией #{@organization.name}", style: 'Header'
-    r.p  "(по состоянию на #{Date.current.strftime('%d.%m.%Y')})", style: 'Prim'
+    r.p  "Incident report for organization #{@organization.name}", style: 'Header'
+    r.p  "(as of #{Date.current.strftime('%d.%m.%Y')})", style: 'Prim'
 #      docx.ul do
 #        li 'Custom page sizes and margins'
 #        li 'Custom styles (including the manipulation of font, size, color, alignment, margins, leading, etc.)'
@@ -30,16 +30,16 @@ class OrganizationIncidentsReport < BaseReport
 #      end
     @organization.me_linked_incidents.each do |incident|
       r.p
-      r.p "#{level}. Инцидент ID #{incident.id} (#{incident.name})", style: 'Header'
-      r.p "#{sublevel} Основные параметры инцидента", style: 'Subheader'
-      r.p "Зарегистрирован: #{incident.created_at.strftime('%d.%m.%Y-%H:%M')}", style: 'Text'
-      r.p "Обнаружен: #{IncidentDecorator.new(incident).show_discovered_at}", style: 'Text'
-      r.p "Начался: #{IncidentDecorator.new(incident).show_started_at}", style: 'Text'
-      r.p "Завершился: #{IncidentDecorator.new(incident).show_finished_at}", style: 'Text'
-      r.p "Статус: #{IncidentDecorator.new(incident).show_state}", style: 'Text'
-      r.p "Ущерб: #{IncidentDecorator.new(incident).show_damage}", style: 'Text'
-      r.p "Важность: #{IncidentDecorator.new(incident).show_severity}", style: 'Text'
-      r.p "#{sublevel} Описание инцидента", style: 'Subheader'
+      r.p "#{level}. Incident ID #{incident.id} (#{incident.name})", style: 'Header'
+      r.p "#{sublevel} Main incident parameters", style: 'Subheader'
+      r.p "Registered: #{incident.created_at.strftime('%d.%m.%Y-%H:%M')}", style: 'Text'
+      r.p "Discovered: #{IncidentDecorator.new(incident).show_discovered_at}", style: 'Text'
+      r.p "Started: #{IncidentDecorator.new(incident).show_started_at}", style: 'Text'
+      r.p "Finished: #{IncidentDecorator.new(incident).show_finished_at}", style: 'Text'
+      r.p "Status: #{IncidentDecorator.new(incident).show_state}", style: 'Text'
+      r.p "Damage: #{IncidentDecorator.new(incident).show_damage}", style: 'Text'
+      r.p "Severity: #{IncidentDecorator.new(incident).show_severity}", style: 'Text'
+      r.p "#{sublevel} Incident description", style: 'Subheader'
       text_area incident.event_description do |t|
         r.p t, style: 'Text'
       end
@@ -49,7 +49,7 @@ class OrganizationIncidentsReport < BaseReport
       text_area incident.action_description do |t|
         r.p t, style: 'Text'
       end
-      r.p "#{sublevel} Связанные с инцидентом объекты", style: 'Subheader'
+      r.p "#{sublevel} Incident related objects", style: 'Subheader'
       incident.links.group_by { |link| "#{LinkKindDecorator.new(link.link_kind).name}" }.sort.each do |link_kind_name, links|
       r.p style: 'Text' do
           text "#{link_kind_name}: "
@@ -63,7 +63,7 @@ class OrganizationIncidentsReport < BaseReport
           text result.join(', ')
         end
       end
-      r.p "#{sublevel} Теги (метки) инцидента", style: 'Subheader'
+      r.p "#{sublevel} Incident tags (labels)", style: 'Subheader'
       incident.tag_members.joins(tag: :tag_kind).where(tag_kinds: {record_type: 'Incident'}).group_by { |tag_member| "#{tag_member.tag.tag_kind.name}" }.sort.each do |tag_kind, tag_members|
         r.p style: 'Text' do
           text "#{tag_kind}: "

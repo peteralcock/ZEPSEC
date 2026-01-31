@@ -1,0 +1,13 @@
+en:
+  activerecord:
+    models:
+      host_service_status:
+        one: 'Network service status'
+        other: 'Network service statuses'
+    attributes:
+      host_service_status:
+        name: 'Name'
+        rank: 'Rank'
+        description: 'Description'
+        created_at: 'Created at'
+        updated_at: 'Updated at'

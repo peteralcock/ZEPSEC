@@ -1,0 +1,6 @@
+en:
+  activerecord:
+    models:
+      scheduled_jobs:
+        one: 'Scheduled job'
+        other: 'Scheduled jobs'

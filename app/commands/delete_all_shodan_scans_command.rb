@@ -3,7 +3,7 @@
 class DeleteAllShodanScansCommand < BaseCommand
 
   set_command_name :delete_all_shodan_scans
-  set_human_name 'Удалить все Shodan результаты сканирования'
+  set_human_name 'Delete all Shodan scan results'
   set_command_model 'ScanResult'
   set_required_params %i[]
 

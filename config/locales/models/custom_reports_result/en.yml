@@ -1,0 +1,11 @@
+en:
+  activerecord:
+    models:
+      custom_reports_result:
+        one: 'SQL report result'
+        other: 'SQL report results'
+    attributes:
+      custom_reports_result:
+        created_at: 'Created at'
+        result_path: 'Report file'
+        variables: 'Report parameters'

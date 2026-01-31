@@ -3,9 +3,9 @@
 class InvestigationReport < BaseReport
   include DateTimeHelper
 
-  set_lang :ru
+  set_lang :en
   set_report_name :investigation_report
-  set_human_name 'Бюллетень индикаторов компрометации'
+  set_human_name 'Compromise indicators bulletin'
   set_report_model 'Investigation'
   set_required_params %i[investigation_id]
   set_formats %i[docx csv]
@@ -75,7 +75,7 @@ class InvestigationReport < BaseReport
 
     r.p do
       style  'ParagraphHeader'
-      text "Бюллетень индикаторов компрометации", style: 'TextMainHeader'
+      text "Compromise indicators bulletin", style: 'TextMainHeader'
     end
 
     if investigation.name != investigation.investigation_kind.name
@@ -93,7 +93,7 @@ class InvestigationReport < BaseReport
     r.p do
       style  'ParagraphHeader'
       text(
-        "(по состоянию на #{Date.current.strftime('%d.%m.%Y')})",
+        "(as of #{Date.current.strftime('%d.%m.%Y')})",
         style: 'TextContent',
         size: 20
       )
@@ -103,13 +103,13 @@ class InvestigationReport < BaseReport
 
     r.p do
       style  'ParagraphContent'
-      text "Тип события: ", style: 'TextHeader'
+      text "Event type: ", style: 'TextHeader'
       text investigation.investigation_kind.name, style: 'TextContent'
     end
 
     r.p do
       style  'ParagraphContent'
-      text "Источник информации: ", style: 'TextHeader'
+      text "Information source: ", style: 'TextHeader'
       if investigation.feed_codename.present?
         text(
           "#{investigation.feed.name} (#{investigation.feed_codename})",
@@ -134,7 +134,7 @@ class InvestigationReport < BaseReport
 
     r.p do
       style 'ParagraphContent'
-      text "Индикаторы:", style: 'TextHeader'
+      text "Indicators:", style: 'TextHeader'
     end
 
     r.hr do
@@ -156,18 +156,18 @@ class InvestigationReport < BaseReport
     r = blank_document
 
     header = [
-      '№ п.',
-      'Исследование (бюллетень)',
-      'Источник информации',
-      'Формат индикатора',
-      'Значение',
-      'Контекст индикатора',
-      'Уровень доверия',
-      'Назначение',
-      'Примечания',
-      'Дата сохранения в базе',
-      'Дата обновления в базе',
-      'Описание исследования (бюллетеня)'
+      'No.',
+      'Investigation (bulletin)',
+      'Information source',
+      'Indicator format',
+      'Value',
+      'Indicator context',
+      'Trust level',
+      'Purpose',
+      'Notes',
+      'Date saved to database',
+      'Date updated in database',
+      'Investigation (bulletin) description'
     ]
     r. << header
 
@@ -204,9 +204,9 @@ class InvestigationReport < BaseReport
       end
       purpose = case i.purpose
                 when 'for_detect'
-                  ' - для поиска'
+                  ' - for detection'
                 when 'for_prevent'
-                  ' - для поиска и блокировки'
+                  ' - for detection and blocking'
                 else
                   ''
                 end

@@ -1,0 +1,17 @@
+en:
+  activerecord:
+    models:
+      scan_job:
+        one: 'Scan job'
+        other: 'Scan jobs'
+    attributes:
+      scan_job:
+        name: 'Name'
+        organization_id: 'Organization'
+        scan_engine: 'Scan engine'
+        scan_option_id: 'Nmap scan options set'
+        agent_id: 'Agent'
+        hosts: 'Hosts'
+        ports: 'Ports'
+        add_organization_hosts: 'Add all organization hosts'
+        description: 'Description'

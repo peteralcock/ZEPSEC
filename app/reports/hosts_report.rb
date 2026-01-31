@@ -3,9 +3,9 @@
 class HostsReport < BaseReport
   include DateTimeHelper
 
-  set_lang :ru
+  set_lang :en
   set_report_name :hosts
-  set_human_name 'Хосты'
+  set_human_name 'Hosts'
   set_report_model 'Host'
   set_required_params %i[]
   set_formats %i[docx csv]
@@ -18,17 +18,17 @@ class HostsReport < BaseReport
       orientation :landscape  # sets the printer orientation. accepts :portrait and :landscape.
     end
     if @organization.present?
-      r.p  "Справка по хостам организации #{@organization.name}", style: 'Header'
+      r.p  "Host report for organization #{@organization.name}", style: 'Header'
     else
-      r.p  "Справка по хостам организаций", style: 'Header'
+      r.p  "Organizations host report", style: 'Header'
     end
-    r.p  "(по состоянию на #{Date.current.strftime('%d.%m.%Y')})", style: 'Prim'
+    r.p  "(as of #{Date.current.strftime('%d.%m.%Y')})", style: 'Prim'
 
     header = [[
-      'Организация',
-      'IP-адрес/подсеть',
-      'Название',
-      'Описание'
+      'Organization',
+      'IP address/subnet',
+      'Name',
+      'Description'
     ]]
 
     table = @records.each_with_object(header) do |record, memo|
@@ -51,10 +51,10 @@ class HostsReport < BaseReport
     r = blank_document
 
     header = [
-      'Организация',
-      'IP-адрес/подсеть',
-      'Название',
-      'Описание'
+      'Organization',
+      'IP address/subnet',
+      'Name',
+      'Description'
     ]
     r. << header
 

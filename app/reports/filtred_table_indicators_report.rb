@@ -3,9 +3,9 @@
 class FiltredTableIndicatorsReport < BaseReport
   include DateTimeHelper
 
-  set_lang :ru
+  set_lang :en
   set_report_name :filtred_table_indicators
-  set_human_name 'Результаты поиска по полям'
+  set_human_name 'Field search results'
   set_report_model 'Indicator'
   set_required_params %i[q]
   set_formats %i[csv]
@@ -15,23 +15,23 @@ class FiltredTableIndicatorsReport < BaseReport
 
     header = [
       '№',
-      'Формат индикатора',
-      'Контексты индикатора',
-      'Индикатор',
-      'Тип исследования',
-      'Код исследования',
-      'Источник исследования',
-      'Код источника исследования',
-      'Описание исследования',
-      'Уровень доверия',
-      'Назначение',
-      'Родительский контейнер',
-      'Описание',
-      'Время создания',
-      'Создал',
-      'Время обновления',
-      'Отредактировал',
-      'Организация владелец',
+      'Indicator format',
+      'Indicator contexts',
+      'Indicator',
+      'Investigation type',
+      'Investigation code',
+      'Investigation source',
+      'Investigation source code',
+      'Investigation description',
+      'Trust level',
+      'Purpose',
+      'Parent container',
+      'Description',
+      'Created at',
+      'Created by',
+      'Updated at',
+      'Updated by',
+      'Owner organization',
     ]
     custom_fields = CustomField.where(field_model: 'Indicator')
     custom_fields_names = custom_fields.each_with_object([]) { |v, o| o << v.name }

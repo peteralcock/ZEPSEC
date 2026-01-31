@@ -1,0 +1,14 @@
+en:
+  activerecord:
+    models:
+      organization:
+        one: 'Organization'
+        other: 'Organizations'
+    attributes:
+      organization:
+        name: 'Name'
+        codename: 'Code name'
+        full_name: 'Full name'
+        description: 'Description'
+        parent_id: 'Part of'
+        organization_kind_id: 'Type'

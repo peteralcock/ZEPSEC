@@ -1,0 +1,18 @@
+en:
+  activerecord:
+    models:
+      record_template:
+        one: 'Template'
+        other: 'Templates'
+    attributes:
+      record_template:
+        name: 'Name'
+        record_type: 'Resource'
+        record_content: 'Attributes'
+        record_tags: 'Tag numbers'
+        sharing_option: 'Availability'
+        sharing_options:
+          all: 'Public'
+          organization: 'For user organization'
+          personal: 'For user only'
+        description: 'Description'

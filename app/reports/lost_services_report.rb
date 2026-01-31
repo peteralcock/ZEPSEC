@@ -3,9 +3,9 @@
 class LostServicesReport < BaseReport
   include DateTimeHelper
 
-  set_lang :ru
+  set_lang :en
   set_report_name :lost_services
-  set_human_name 'Сервисы по которым нет результатов сканирования'
+  set_human_name 'Services with no scan results'
   set_report_model 'HostService'
   set_required_params %i[]
   set_formats %i[docx csv]
@@ -18,22 +18,22 @@ class LostServicesReport < BaseReport
       orientation :landscape  # sets the printer orientation. accepts :portrait and :landscape.
     end
     if @organization.present?
-      r.p  "Справка по сетевым сервисам организации #{@organization.name} по которым нет результатов сканирования", style: 'Header'
+      r.p  "Network services report for organization #{@organization.name} with no scan results", style: 'Header'
     else
-      r.p  "Справка по сетевым сервисам организаций по которым нет результатов сканирования", style: 'Header'
+      r.p  "Network services report for organizations with no scan results", style: 'Header'
     end
-    r.p  "(по состоянию на #{Date.current.strftime('%d.%m.%Y')})", style: 'Prim'
+    r.p  "(as of #{Date.current.strftime('%d.%m.%Y')})", style: 'Prim'
 
     header = [[
-      'Организация',
-      'IP-адрес',
-      'Порт',
-      'Протокол',
-      'Состояние',
-      'Легальность',
-      'Уязвимость',
-      'Описание уязвимости',
-      'Описание'
+      'Organization',
+      'IP address',
+      'Port',
+      'Protocol',
+      'State',
+      'Legality',
+      'Vulnerability',
+      'Vulnerability description',
+      'Description'
     ]]
 
     table = @records.each_with_object(header) do |record, memo|
@@ -60,15 +60,15 @@ class LostServicesReport < BaseReport
     r = blank_document
 
     header = [
-      'Организация',
-      'IP-адрес',
-      'Порт',
-      'Протокол',
-      'Состояние',
-      'Легальность',
-      'Уязвимость',
-      'Описание уязвимости',
-      'Описание'
+      'Organization',
+      'IP address',
+      'Port',
+      'Protocol',
+      'State',
+      'Legality',
+      'Vulnerability',
+      'Vulnerability description',
+      'Description'
     ]
     r << header
 

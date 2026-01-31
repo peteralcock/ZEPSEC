@@ -3,7 +3,7 @@
 class RunAllShodanScans < BaseCommand
 
   set_command_name :run_all_shodan_scans
-  set_human_name 'Запустить все Shodan сканирования'
+  set_human_name 'Run all Shodan scans'
   set_command_model 'ScanJob'
   set_required_params %i[]
 

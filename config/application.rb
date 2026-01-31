@@ -15,8 +15,8 @@ module Rism
     config.action_view.field_error_proc = Proc.new { |html_tag, instance|
         "<div class='text-danger has-error' >#{html_tag}</div>".html_safe
       }
-    config.i18n.default_locale = :ru
-    config.time_zone = 'Moscow'
+    config.i18n.default_locale = :en
+    config.time_zone = 'UTC'
     config.assets.precompile += %w( ckeditor/* )
 
     config.active_job.queue_adapter = :sidekiq

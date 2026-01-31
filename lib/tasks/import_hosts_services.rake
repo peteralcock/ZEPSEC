@@ -44,6 +44,7 @@ namespace :rism do
           name: attributes[:organization_name]
         ) do |org|
           org.current_user = current_user
+          # NOTE: ООО (LLC), АО (JSC), ПАО (PJSC) are Russian legal entity abbreviations
           codename = attributes[:organization_name].gsub(
             /[^[:alpha:]]|ООО|АО|ПАО|#{args[:stop_word]}|\s/,
             ''
