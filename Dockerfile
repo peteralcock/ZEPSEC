@@ -49,10 +49,9 @@ RUN chown -R 10001:10001 /app
 USER 10001:10001
 ENV HOME="/app"
 WORKDIR /app
-RUN gem install bundler && \
+RUN gem install bundler -v ${BUNDLER_VERSION} && \
     bundle config build.nokogiri --use-system-libraries && \
     rm -rf /usr/lib/lib/ruby/gems/*/cache/*
-RUN gem install bundler -v 1.17.3
 COPY Gemfile Gemfile.lock ./
 RUN bundle install --jobs 8 --retry 3 --without development test
 #RUN bundle install --binstubs --jobs 8 --retry 3
