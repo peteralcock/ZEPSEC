@@ -1,93 +1,129 @@
-# For setup before first
-# 1. setup values (at least SECRET_KEY_BASE) fol environment variables
-# 2. run setup command:
-# docker-compose run --rm app bundle exec rake db:create
-# After that for start RISM every time just do:
-# docker-compose up
-version: '3.4'
+# ZEPSEC (RISM) - Security Operations Platform
+#
+# Quick start:
+#   1. Review/edit .env.production.docker (set SECRET_KEY_BASE, API keys, etc.)
+#   2. Build:  docker-compose build
+#   3. Setup:  docker-compose run --rm app bundle exec rake db:create db:migrate db:seed
+#   4. Start:  docker-compose up -d
+#   5. Access: http://localhost (via nginx) or http://localhost:3000 (direct)
+#
+# To view logs:  docker-compose logs -f
+# To stop:       docker-compose down
+# To reset DB:   docker-compose down -v  (WARNING: destroys all data)
+
+version: '3.8'
+
+x-app-common: &app-common
+  build:
+    context: .
+    dockerfile: Dockerfile
+  env_file:
+    - .env.production.docker
+  volumes:
+    - file_storage:/app/file_storage
+    - app_log:/app/log
+  depends_on:
+    database:
+      condition: service_healthy
+    redis:
+      condition: service_healthy
 
 services:
-  app:
-    image: rism:latest
-    depends_on:
-      - database
-      - redis
-    ports:
-      - "3000:3000"
-    volumes:
-      - rism_file_storage:/app/file_storage
-      - rism_log:/app/log
-      - rism_www_config/nginx.docker.conf:/etc/nginx/nginx.conf
-      - rism_www:/app
-    env_file:
-      - .env.production.docker
-    healthcheck:
-      test: ["CMD", "curl", "--fail", "http://localhost:3000/", "||", "exit", "1"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    #restart: always
-
+  # ── PostgreSQL Database ──────────────────────────────────────────────
   database:
     image: postgres:10.14-alpine
-    volumes:
-      - rism_db_data:/var/lib/postgresql/data
-    #  - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     env_file:
       - .env.production.docker
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
-      - '5432:5432'
-    #restart: always
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER:-rism}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    restart: unless-stopped
 
+  # ── Redis (Sidekiq queue + ActionCable + cache) ──────────────────────
   redis:
     image: redis:6.0.8-alpine
-    restart: always
-    ports:
-      - '6379:6379'
+    command: redis-server --appendonly yes
     volumes:
-      - rism_redis_data:/var/lib/redis/data
-    env_file:
-      - .env.production.docker
-    command: redis-server
+      - redis_data:/data
+    ports:
+      - "6379:6379"
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 5s
-      timeout: 1s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
+    restart: unless-stopped
+
+  # ── Rails Application (Puma) ─────────────────────────────────────────
+  app:
+    <<: *app-common
+    entrypoint: /app/rails-entrypoint.sh
+    ports:
+      - "3000:3000"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:3000/ || exit 1"]
+      interval: 30s
+      timeout: 10s
       retries: 5
-    #restart: always
+      start_period: 60s
+    restart: unless-stopped
 
+  # ── Sidekiq Background Workers ──────────────────────────────────────
   sidekiq:
-    image: rism:latest
+    <<: *app-common
+    command: bundle exec sidekiq -C config/sidekiq.yml
     depends_on:
-      - app
-      - database
-      - redis
-    volumes:
-      - rism_file_storage:/app/file_storage
-      - rism_log:/app/log
-    env_file:
-      - .env.production.docker
-    command: sidekiq start
-    #restart: always
+      database:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      app:
+        condition: service_started
+    healthcheck:
+      test: ["CMD-SHELL", "bundle exec sidekiqmon processes | grep -q 'busy' || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
 
-    #  nginx:
-    #    image: nginx:1.19.3-alpine
-    #    depends_on:
-    #      - app
-    #    volumes:
-    #      - rism_www_config/nginx.docker.conf:/etc/nginx/nginx.conf
-    #      - rism_www:/app
-    #    ports:
-    #      - '443:443'
-    #    env_file:
-    #      - .env.production.docker
-    #    command: nginx start
-    #    #restart: always
+  # ── Nginx Reverse Proxy ─────────────────────────────────────────────
+  nginx:
+    image: nginx:1.19.3-alpine
+    depends_on:
+      app:
+        condition: service_healthy
+    volumes:
+      - ./nginx.docker.conf:/etc/nginx/nginx.conf:ro
+      - app_public:/app/public:ro
+      - app_log:/app/log
+    ports:
+      - "80:80"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost/ || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
 
 volumes:
-  rism_db_data:
-  rism_redis_data:
-  rism_file_storage:
-  rism_log:
-    #  rism_www:
-    #  rism_www_config:
+  db_data:
+    driver: local
+  redis_data:
+    driver: local
+  file_storage:
+    driver: local
+  app_log:
+    driver: local
+  app_public:
+    driver: local
