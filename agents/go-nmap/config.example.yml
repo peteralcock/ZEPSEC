@@ -1,0 +1,70 @@
+# ZEPSEC Nmap Agent Configuration
+# ================================
+# All settings can be overridden with environment variables.
+# See README.md for the full list of env var names.
+
+agent:
+  # Address and port the agent listens on for incoming scan requests
+  listen_addr: "0.0.0.0:8000"
+
+  # Shared secret the ZEPSEC server uses to authenticate with this agent.
+  # This must match the "secret" field configured for this agent in ZEPSEC.
+  # Env: ZEPSEC_AGENT_SECRET
+  secret: "change-me-to-a-strong-secret"
+
+  # Optional TLS certificate and key for HTTPS.
+  # If both are set, the agent serves over HTTPS; otherwise plain HTTP.
+  # tls_cert: "/etc/zepsec/agent.crt"
+  # tls_key: "/etc/zepsec/agent.key"
+
+server:
+  # Base URL of the ZEPSEC Rails application
+  # Env: ZEPSEC_SERVER_URL
+  url: "https://zepsec.example.com"
+
+  # API token for authenticating result submissions to /api/v1/ra_api.
+  # Generate this from a user account: Users > Generate API Token.
+  # Env: ZEPSEC_API_TOKEN
+  api_token: "your-zepsec-api-token"
+
+  # Whether to verify the ZEPSEC server's TLS certificate.
+  # Set to false if using self-signed certificates.
+  # Env: ZEPSEC_VERIFY_TLS
+  verify_tls: true
+
+nmap:
+  # Path to the nmap binary
+  # Env: ZEPSEC_NMAP_PATH
+  binary_path: "/usr/bin/nmap"
+
+  # Run nmap with sudo (required for SYN scans, OS detection, etc.)
+  # Env: ZEPSEC_NMAP_SUDO
+  use_sudo: true
+
+  # Directory for temporary nmap XML output files
+  # Env: ZEPSEC_NMAP_TEMP_DIR
+  temp_dir: "/tmp/zepsec-nmap"
+
+# Autonomous scheduled scans (optional)
+# These run independently of server-dispatched jobs, allowing the agent
+# to continuously monitor network segments on its own schedule.
+# Results are reported to the ZEPSEC server the same way as dispatched scans.
+#
+# NOTE: Autonomous scans use synthetic job IDs (auto_<name>_<timestamp>).
+# The ZEPSEC server must have a corresponding scan job configured to accept
+# results, or these results will be logged but rejected by the server.
+scheduled_scans:
+  # - name: "internal-subnet"
+  #   targets: "10.0.0.0/24"
+  #   options: "-sS -sV -Pn -T4 --top-ports 1000"
+  #   interval: "6h"
+
+  # - name: "dmz-full"
+  #   targets: "172.16.0.0/24"
+  #   options: "-sS -sV -sU -Pn -T4 -p 1-65535"
+  #   interval: "24h"
+
+  # - name: "critical-servers"
+  #   targets: "10.0.1.10,10.0.1.11,10.0.1.12"
+  #   options: "-sS -sV -O -Pn -T4"
+  #   interval: "1h"

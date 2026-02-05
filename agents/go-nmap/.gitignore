@@ -1,0 +1,4 @@
+zepsec-nmap-agent
+zepsec-nmap-agent-*
+config.yml
+*.exe
